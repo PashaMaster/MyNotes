@@ -14,34 +14,22 @@ export class Item{
 @Component({
     selector: 'purchase-app',
     template: `
-    <div >
+    <div class="title">
         <h1> {{title}} </h1>
     </div>
     <div class="panel">
         <div class="form-inline">
             <div class="form-group">
-                <div class="col-md-8">
-                    <input class="form-control" [(ngModel)]="text" placeholder = "Note" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-8">
-                    <button class="btn btn-default" (click)="addItem(text)">Add</button>
-                </div>
+                <input class="form-control" [(ngModel)]="text" placeholder = "Note" />
+                <button class="btn btn-default btnw" (click)="addItem(text)">Add</button>
             </div>
         </div>
     </div>
     <div class="panel">
         <div class="form-inline">
             <div class="form-group">
-                <div class="col-md-8">
                     <input class="form-control" [(ngModel)]="id" placeholder = "Number note" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-8">
-                    <button class="btn btn-default" (click)="removeItem(id)">Remove</button>
-                </div>
+                    <button class="btn btn-default btnw" (click)="removeItem(id)">Remove</button>
             </div>
         </div>
     </div>
@@ -103,6 +91,17 @@ export class Item{
         height: 2.2em;
         margin-right: .8em;
         border-radius: 4px 0 0 4px;
+      }
+      .title {
+        margin: 0 3em 2em 20em;
+        color: #607D8B;
+      }
+      .form-group{
+        margin: 0 0 0 5em;
+        display: inline-block;
+      }
+      .btnw{
+        width: 6em;
       }
     `]
 })
