@@ -1,6 +1,6 @@
 	
 {
-    "name": "Primer",
+    "name": "MyNotes",
     "version": "1.0.0",
     "scripts": {
         "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",

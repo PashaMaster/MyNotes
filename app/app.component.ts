@@ -14,8 +14,8 @@ export class Item{
 @Component({
     selector: 'purchase-app',
     template: `
-    <div class="page-header">
-        <h1> My notes </h1>
+    <div >
+        <h1> {{title}} </h1>
     </div>
     <div class="panel">
         <div class="form-inline">
@@ -30,20 +30,8 @@ export class Item{
                 </div>
             </div>
         </div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Numbers</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of items"	>
-                	<td>{{item.id}}</td>
-                    <td>{{item.textNote}}</td>
-                </tr>
-            </tbody>
-        </table>
+    </div>
+    <div class="panel">
         <div class="form-inline">
             <div class="form-group">
                 <div class="col-md-8">
@@ -56,11 +44,74 @@ export class Item{
                 </div>
             </div>
         </div>
-    </div>`
+    </div>
+    <div class="panel">
+        <ul class="notes">
+            <li>
+                <span class="badge">ID</span>Note
+            </li>
+            <li *ngFor="let item of items"> 
+                <span class="badge">{{item.id}}</span>{{item.textNote}}
+            </li>
+        </ul>
+    </div>        
+   `
+    styles:[`
+      .selected {
+        background-color: #CFD8DC !important;
+        color: white;
+      }
+      .notes {
+        margin: 0 0 2em 5em;
+        list-style-type: none;
+        padding: 0;
+        width: 45em;
+      }
+      .notes li {
+        cursor: pointer;
+        position: relative;
+        left: 0;
+        background-color: #EEE;
+        margin: .5em;
+        padding: .3em 0;
+        height: 3em;
+        border-radius: 4px;
+      }
+      .notes li.selected:hover {
+        background-color: #BBD8DC !important;
+        color: white;
+      }
+      .notes li:hover {
+        color: #607D8B;
+        background-color: #DDD;
+        left: .1em;
+      }
+      .notes .text {
+        position: relative;
+        top: -3px;
+      }
+      .notes .badge {
+        display: inline-block;
+        font-size: small;
+        color: white;
+        padding: 0.8em 0.7em 0 0.7em;
+        background-color: #607D8B;
+        line-height: 1em;
+        position: relative;
+        left: -1px;
+        top: -4px;
+        height: 2.2em;
+        margin-right: .8em;
+        border-radius: 4px 0 0 4px;
+      }
+    `]
 })
 export class AppComponent { 
 
+    title = 'My notes';
+
     public items = ITEMS;
+
     addItem(textN: string): void {
          
         if(textN==null || textN==undefined || textN.trim()=="")
@@ -74,6 +125,7 @@ export class AppComponent {
 		id=id+1;
         this.items.push(new Item(textN, id));
     }
+
 	removeItem(id: number): void {
 
 		let newItems : Item[]=[];
