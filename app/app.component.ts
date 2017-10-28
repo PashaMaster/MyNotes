@@ -1,15 +1,6 @@
 import { Component } from '@angular/core';
-     
-export class Item{
-	id : number;
-    textNote: string;
-     
-    constructor(textNote: string, id: number) {
-  
-		this.id=id;
-        this.textNote = textNote;
-    }
-}
+import { Item } from './item';     
+import { NoteDetailComponent } from './note-detail.component';     
  
 @Component({
     selector: 'purchase-app',
@@ -45,17 +36,9 @@ export class Item{
                 <span class="badge">{{item.id}}</span>{{item.textNote}}
             </li>
         </ul>
-        <div  class="form-inline form-group"
-            *ngIf="selectedItem">
-            <h3>{{selectedItem.textNote}}</h3>
-            <div><label>ID: </label>{{selectedItem.id}}</div>
-            <div>
-                <label>Note: </label>
-                <input class="form-control" [(ngModel)]="selectedItem.textNote" placeholder="textNote"/>
-            </div>
-        </div>
+        <note-detail [item]="selectedItem"></note-detail>    
     </div>        
-   `
+   `,
     styles:[`
       .selected {
         background-color: #CFD8DC !important;
