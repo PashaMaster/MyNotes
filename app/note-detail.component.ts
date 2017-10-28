@@ -13,7 +13,13 @@ import { Item } from './item';
                 <input class="form-control" [(ngModel)]="item.textNote" placeholder="textNote"/>
             </div>
         </div>
-	`
+	`,
+    styles:[`
+      .form-group{
+        margin: 0 0 0 5em;
+        display: inline-block;
+
+    `]
 })
 
 export class NoteDetailComponent {

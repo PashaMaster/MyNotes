@@ -23,7 +23,8 @@ __decorate([
 NoteDetailComponent = __decorate([
     core_1.Component({
         selector: 'note-detail',
-        template: "\n\t\t<div  class=\"form-inline form-group\"\n            *ngIf=\"item\">\n            <h3>{{item.textNote}}</h3>\n            <div><label>ID: </label>{{item.id}}</div>\n            <div>\n                <label>Note: </label>\n                <input class=\"form-control\" [(ngModel)]=\"item.textNote\" placeholder=\"textNote\"/>\n            </div>\n        </div>\n\t"
+        template: "\n\t\t<div  class=\"form-inline form-group\"\n            *ngIf=\"item\">\n            <h3>{{item.textNote}}</h3>\n            <div><label>ID: </label>{{item.id}}</div>\n            <div>\n                <label>Note: </label>\n                <input class=\"form-control\" [(ngModel)]=\"item.textNote\" placeholder=\"textNote\"/>\n            </div>\n        </div>\n\t",
+        styles: ["\n      .form-group{\n        margin: 0 0 0 5em;\n        display: inline-block;\n\n    "]
     })
 ], NoteDetailComponent);
 exports.NoteDetailComponent = NoteDetailComponent;
