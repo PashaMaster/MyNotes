@@ -7,15 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var mock_note_1 = require("./mock-note");
 var NoteService = (function () {
     function NoteService() {
     }
+    NoteService.prototype.getItems = function () {
+        return mock_note_1.ITEMS;
+    };
     return NoteService;
 }());
 NoteService = __decorate([
     core_1.Injectable()
 ], NoteService);
 exports.NoteService = NoteService;
-(function () {
-});
 //# sourceMappingURL=note.service.js.map

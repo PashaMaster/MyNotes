@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';    
 import { Item } from './item';     
-import { NoteDetailComponent } from './note-detail.component';     
+import { NoteDetailComponent } from './note-detail.component';    
+import { NoteService } from './note.service';    
+
+
  
 @Component({
     selector: 'purchase-app',
@@ -98,15 +102,28 @@ import { NoteDetailComponent } from './note-detail.component';     
       .btnw{
         width: 6em;
       }
-    `]
+    `],
+    providers: [NoteService]
 })
-export class AppComponent { 
+export class AppComponent implements OnInit{ 
 
     title = 'My notes';
 
     selectedItem: Item;
     
-    public items = ITEMS;
+    items: Item[];
+
+    constructor(private _noteService: NoteService) {}
+
+    ngOnInit() {
+
+        this.getItems();
+    }
+
+    getItems() {
+
+        this.items = this._noteService.getItems();
+    }
 
     addItem(textN: string): void {
          
@@ -150,11 +167,3 @@ export class AppComponent {
 
 }
 
-var ITEMS: Item[] = 
-    [
-        { id: 1, textNote: "Hello!"},
-        { id: 2, textNote: "I am Pasha"},
-        { id: 3, textNote: "Good morning:)"},
-        { id: 4, textNote: "What do you do?"}
-  
-    ];
