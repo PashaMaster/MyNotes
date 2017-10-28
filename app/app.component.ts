@@ -28,20 +28,32 @@ export class Item{
     <div class="panel">
         <div class="form-inline">
             <div class="form-group">
-                    <input class="form-control" [(ngModel)]="id" placeholder = "Number note" />
-                    <button class="btn btn-default btnw" (click)="removeItem(id)">Remove</button>
+                <input class="form-control" [(ngModel)]="id" placeholder = "Number note" />
+                <button class="btn btn-default btnw" (click)="removeItem(id)">Remove</button>
             </div>
         </div>
     </div>
     <div class="panel">
         <ul class="notes">
-            <li>
+            <li (click) = "notSelected()">
                 <span class="badge">ID</span>Note
             </li>
-            <li *ngFor="let item of items"> 
+            <li *ngFor="let item of items"
+                [class.selected]="item === selectedItem"
+                (click) = "onSelected(item)"
+            > 
                 <span class="badge">{{item.id}}</span>{{item.textNote}}
             </li>
         </ul>
+        <div  class="form-inline form-group"
+            *ngIf="selectedItem">
+            <h3>{{selectedItem.textNote}}</h3>
+            <div><label>ID: </label>{{selectedItem.id}}</div>
+            <div>
+                <label>Note: </label>
+                <input class="form-control" [(ngModel)]="selectedItem.textNote" placeholder="textNote"/>
+            </div>
+        </div>
     </div>        
    `
     styles:[`
@@ -109,24 +121,30 @@ export class AppComponent {
 
     title = 'My notes';
 
+    selectedItem: Item;
+    
     public items = ITEMS;
 
     addItem(textN: string): void {
          
         if(textN==null || textN==undefined || textN.trim()=="")
             return;	
+
 		let id: number;
 		id=0;
 		for (var item of this.items) {
 
-			id=item.id;
+			if (item.id>id)
+                id=item.id;
 		}
 		id=id+1;
         this.items.push(new Item(textN, id));
     }
 
 	removeItem(id: number): void {
-
+        
+        if(id==null)
+            return; 
 		let newItems : Item[]=[];
 		for (var item of this.items) {
 
@@ -134,14 +152,26 @@ export class AppComponent {
                 newItems.push(new Item(item.textNote, item.id ));
 		}
 		this.items=newItems;
+        this.selectedItem = null;
 	}
+   
+    onSelected(item: Item) : void {
+
+        this.selectedItem = item;
+    }
+
+    notSelected() : void {
+
+        this.selectedItem = null;
+    }
+
 }
 
 var ITEMS: Item[] = 
     [
         { id: 1, textNote: "Hello!"},
         { id: 2, textNote: "I am Pasha"},
-        { id: 3, textNote: "Good morning"},
+        { id: 3, textNote: "Good morning:)"},
         { id: 4, textNote: "What do you do?"}
   
     ];
