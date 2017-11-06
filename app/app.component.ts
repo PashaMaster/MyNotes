@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';    
-import { Item } from './item';     
-import { NoteDetailComponent } from './note-detail.component';    
-import { NoteService } from './note.service';    
+import { NotesComponent } from './notes.component';
+import { DashboardComponent }      from './dashboard.component';
+import { NoteService } from './note.service';
+import { RouterModule }      from '@angular/router';
 
 
- 
 @Component({
     selector: 'purchase-app',
     template: `
@@ -13,157 +12,21 @@ import { NoteService } from './note.service';    
         <h1> {{title}} </h1>
     </div>
     <div class="panel">
-        <div class="form-inline">
-            <div class="form-group">
-                <input class="form-control" [(ngModel)]="text" placeholder = "Note" />
-                <button class="btn btn-default btnw" (click)="addItem(text)">Add</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel">
-        <div class="form-inline">
-            <div class="form-group">
-                <input class="form-control" [(ngModel)]="id" placeholder = "Number note" />
-                <button class="btn btn-default btnw" (click)="removeItem(id)">Remove</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel">
-        <ul class="notes">
-            <li (click) = "notSelected()">
-                <span class="badge">ID</span>Note
+        <ul class="nav">
+            <li>
+                <a routerLink="/dashboard">Dashboard</a>
             </li>
-            <li *ngFor="let item of items"
-                [class.selected]="item === selectedItem"
-                (click) = "onSelected(item)"
-            > 
-                <span class="badge">{{item.id}}</span>{{item.textNote}}
+            <li>
+            	<a routerLink="/notes">Notes</a>
             </li>
         </ul>
-        <note-detail [item]="selectedItem"></note-detail>    
-    </div>        
-   `,
-    styles:[`
-      .selected {
-        background-color: #CFD8DC !important;
-        color: white;
-      }
-      .notes {
-        margin: 0 0 2em 5em;
-        list-style-type: none;
-        padding: 0;
-        width: 45em;
-      }
-      .notes li {
-        cursor: pointer;
-        position: relative;
-        left: 0;
-        background-color: #EEE;
-        margin: .5em;
-        padding: .3em 0;
-        height: 3em;
-        border-radius: 4px;
-      }
-      .notes li.selected:hover {
-        background-color: #BBD8DC !important;
-        color: white;
-      }
-      .notes li:hover {
-        color: #607D8B;
-        background-color: #DDD;
-        left: .1em;
-      }
-      .notes .text {
-        position: relative;
-        top: -3px;
-      }
-      .notes .badge {
-        display: inline-block;
-        font-size: small;
-        color: white;
-        padding: 0.8em 0.7em 0 0.7em;
-        background-color: #607D8B;
-        line-height: 1em;
-        position: relative;
-        left: -1px;
-        top: -4px;
-        height: 2.2em;
-        margin-right: .8em;
-        border-radius: 4px 0 0 4px;
-      }
-      .title {
-        margin: 0 3em 2em 20em;
-        color: #607D8B;
-      }
-      .form-group{
-        margin: 0 0 0 5em;
-        display: inline-block;
-      }
-      .btnw{
-        width: 6em;
-      }
-    `],
+    </div>   
+    <router-outlet></router-outlet>
+    `,
     providers: [NoteService]
 })
-export class AppComponent implements OnInit{ 
 
-    title = 'My notes';
+export class AppComponent {
 
-    selectedItem: Item;
-    
-    items: Item[];
-
-    constructor(private _noteService: NoteService) {}
-
-    ngOnInit() {
-
-        this.getItems();
-    }
-
-    getItems() {
-
-        this.items = this._noteService.getItems();
-    }
-
-    addItem(textN: string): void {
-         
-        if(textN==null || textN==undefined || textN.trim()=="")
-            return;	
-
-		let id: number;
-		id=0;
-		for (var item of this.items) {
-
-			if (item.id>id)
-                id=item.id;
-		}
-		id=id+1;
-        this.items.push(new Item(textN, id));
-    }
-
-	removeItem(id: number): void {
-        
-        if(id==null)
-            return; 
-		let newItems : Item[]=[];
-		for (var item of this.items) {
-
-            if (item.id != id)
-                newItems.push(new Item(item.textNote, item.id ));
-		}
-		this.items=newItems;
-        this.selectedItem = null;
-	}
-   
-    onSelected(item: Item) : void {
-
-        this.selectedItem = item;
-    }
-
-    notSelected() : void {
-
-        this.selectedItem = null;
-    }
-
+	title = 'My notes';
 }
-

@@ -11,6 +11,13 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
 var note_detail_component_1 = require("./note-detail.component");
+var notes_component_1 = require("./notes.component");
+var dashboard_component_1 = require("./dashboard.component");
+var router_1 = require("@angular/router");
+var routers = [
+    { path: 'dashboard', component: dashboard_component_1.DashboardComponent, userAsDefault: true },
+    { path: 'notes', component: notes_component_1.NotesComponent }
+];
 var AppModule = (function () {
     function AppModule() {
     }
@@ -18,8 +25,9 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, note_detail_component_1.NoteDetailComponent],
+        declarations: [app_component_1.AppComponent, note_detail_component_1.NoteDetailComponent, notes_component_1.NotesComponent, dashboard_component_1.DashboardComponent],
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, router_1.RouterModule.forRoot(routers)],
+        providers: [],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

@@ -1,0 +1,82 @@
+.nav {
+  margin: 0 0 2em 5em;
+  list-style-type: none;
+  padding: 0;
+  width: 15em;
+  border-radius: 4px;
+}
+.nav li {
+
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: 1em 2em;
+  padding: 1em;
+  border-radius: 4px;  
+  display: block;
+}
+  
+.nav .text {
+  position: relative;
+  top: -3px;
+}
+
+.selected {
+  background-color: #EEE !important;
+  color: white;
+}
+.notes {
+  margin: 0 0 2em 5em;
+  list-style-type: none;
+  padding: 0;
+  width: 45em;
+}
+.notes li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .3em 0;
+  height: 3em;
+  border-radius: 4px;
+}
+.notes li.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+.notes li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.notes .text {
+  position: relative;
+  top: -3px;
+}
+.notes .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607D8B;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 2.2em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+.title {
+  margin: 0 3em 2em 20em;
+  color: #607D8B;
+}
+.form-group{
+  margin: 0 0 0 5em;
+  display: inline-block;
+}
+.btnw{
+  width: 6em;
+}
