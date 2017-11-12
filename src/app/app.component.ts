@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NotesComponent } from './notes.component';
-import { DashboardComponent }      from './dashboard.component';
-import { NoteService } from './note.service';
-import { RouterModule }      from '@angular/router';
+import { NotesComponent } from '../note/notes/notes.component';
+import { DashboardComponent } from '../main-page/dashboard.component';
+import { NoteService } from '../note/note.service';
+import { RouterModule } from '@angular/router';
 
 
 @Component({

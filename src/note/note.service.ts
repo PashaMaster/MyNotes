@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITEMS } from './mock-note';
+import { ITEMS } from '../mock/mock-note';
 
 @Injectable()
 

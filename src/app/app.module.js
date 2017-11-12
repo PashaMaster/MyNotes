@@ -10,9 +10,9 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
-var note_detail_component_1 = require("./note-detail.component");
-var notes_component_1 = require("./notes.component");
-var dashboard_component_1 = require("./dashboard.component");
+var note_detail_component_1 = require("../note/note-detail/note-detail.component");
+var notes_component_1 = require("../note/notes/notes.component");
+var dashboard_component_1 = require("../main-page/dashboard.component");
 var router_1 = require("@angular/router");
 var routers = [
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent, userAsDefault: true },

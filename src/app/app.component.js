@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var note_service_1 = require("./note.service");
+var note_service_1 = require("../note/note.service");
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'My notes';

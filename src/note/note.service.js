@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var mock_note_1 = require("./mock-note");
+var mock_note_1 = require("../mock/mock-note");
 var NoteService = (function () {
     function NoteService() {
     }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';    
-import { Item } from './item';     
-import { NoteDetailComponent } from './note-detail.component';    
-import { NoteService } from './note.service';    
+import { Item } from '../../item/item';     
+import { NoteDetailComponent } from '../note-detail/note-detail.component';    
+import { NoteService } from '../note.service';    
 
 
  
