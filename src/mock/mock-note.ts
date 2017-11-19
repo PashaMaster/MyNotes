@@ -1,5 +1,8 @@
 import { Item } from '../item/item';     
 
+/** 
+  * Массив типа Item, который хранит первоначальные записки
+  */
 export var ITEMS: Item[] = 
     [
         { id: 1, textNote: "Hello!"},
