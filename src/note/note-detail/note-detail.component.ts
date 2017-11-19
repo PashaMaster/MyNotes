@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '../../item/item';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
 	selector:'note-detail',
@@ -7,9 +8,9 @@ import { Item } from '../../item/item';
 		<div  class="form-inline form-group"
             *ngIf="item">
             <h3>{{item.textNote}}</h3>
-            <div><label>ID: </label>{{item.id}}</div>
+            <div><label>{{'DETAIL.ID' | translate}}: </label>{{item.id}}</div>
             <div>
-                <label>Note: </label>
+                <label>{{'DETAIL.Note' | translate}}: </label>
                 <input class="form-control" [(ngModel)]="item.textNote" placeholder="textNote"/>
             </div>
         </div>

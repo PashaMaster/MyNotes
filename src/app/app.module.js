@@ -6,8 +6,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
+var http_1 = require("@angular/common/http");
 var platform_browser_1 = require("@angular/platform-browser");
+var core_1 = require("@angular/core");
+var core_2 = require("@ngx-translate/core");
+var http_loader_1 = require("@ngx-translate/http-loader");
 var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
 var note_detail_component_1 = require("../note/note-detail/note-detail.component");
@@ -18,6 +21,10 @@ var routers = [
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent, userAsDefault: true },
     { path: 'notes', component: notes_component_1.NotesComponent }
 ];
+function HttpLoaderFactory(httpClient) {
+    return new http_loader_1.TranslateHttpLoader(httpClient, "i18n/", ".json");
+}
+exports.HttpLoaderFactory = HttpLoaderFactory;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -26,7 +33,19 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         declarations: [app_component_1.AppComponent, note_detail_component_1.NoteDetailComponent, notes_component_1.NotesComponent, dashboard_component_1.DashboardComponent],
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, router_1.RouterModule.forRoot(routers)],
+        imports: [
+            platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            router_1.RouterModule.forRoot(routers),
+            http_1.HttpClientModule,
+            core_2.TranslateModule.forRoot({
+                loader: {
+                    provide: core_2.TranslateLoader,
+                    useFactory: HttpLoaderFactory,
+                    deps: [http_1.HttpClient]
+                }
+            })
+        ],
         providers: [],
         bootstrap: [app_component_1.AppComponent]
     })

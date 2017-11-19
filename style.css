@@ -1,3 +1,8 @@
+.language{
+  margin: 0 0 2em 6em;
+  list-style-type: none;
+ }
+
 .nav {
   margin: 0 0 2em 5em;
   list-style-type: none;

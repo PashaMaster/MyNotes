@@ -12,23 +12,23 @@ import { NoteService } from '../note.service';    
     <div class="panel">
         <div class="form-inline">
             <div class="form-group">
-                <input class="form-control" [(ngModel)]="text" placeholder = "Note" />
-                <button class="btn btn-default btnw" (click)="addItem(text)">Add</button>
+                <input class="form-control" [(ngModel)]="text" placeholder = "{{'NOTES.Note' | translate}}" />
+                <button class="btn btn-default btnw" (click)="addItem(text)">{{'NOTES.Add' | translate}}</button>
             </div>
         </div>
     </div>
     <div class="panel">
         <div class="form-inline">
             <div class="form-group">
-                <input class="form-control" [(ngModel)]="id" placeholder = "Number note" />
-                <button class="btn btn-default btnw" (click)="removeItem(id)">Remove</button>
+                <input class="form-control" [(ngModel)]="id" placeholder = "{{'NOTES.Number' | translate}}" />
+                <button class="btn btn-default btnw" (click)="removeItem(id)">{{'NOTES.Remove' | translate}}</button>
             </div>
         </div>
     </div>
     <div class="panel">
         <ul class="notes">
             <li (click) = "notSelected()">
-                <span class="badge">ID</span>Note
+                <span class="badge">ID</span>{{'NOTES.NoteIn' | translate}}
             </li>
             <li *ngFor="let item of items"
                 [class.selected]="item === selectedItem"
