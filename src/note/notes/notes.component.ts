@@ -6,12 +6,12 @@ import { NoteService } from '../note.service';    
 
 @Component({
     selector: 'purchase-notes',
-    template: `
-                <div class="panel">
+    template: `<div class="panel">
                     <div class="form-inline">
                         <div class="form-group">
                             <input class="form-control" [(ngModel)]="text" placeholder = "{{'NOTES.Note' | translate}}" />
-                            <button class="btn btn-default btnw" (click)="addItem(text)">
+                            <input class="form-control" [(ngModel)]="date" placeholder = "{{'NOTES.Date' | translate}}" />
+                            <button class="btn btn-default btnw" (click)="addItem(text, date)">
                                 {{'NOTES.Add' | translate}}
                             </button>
                         </div>
@@ -40,7 +40,9 @@ import { NoteService } from '../note.service';    
                             (click) = "onSelected(item)"
                         > 
                             <span class="badge">
-                                {{item.id}}
+                                <font color={{getColor(item.dateOfBegin)}}>
+                                {{item.id}} 
+                                </font>
                             </span>
                             {{item.textNote}}
                         </li>
@@ -92,7 +94,7 @@ export class NotesComponent implements OnInit{
       * Метод, который добавляет записку
       * @param=textN строка, которую нужно добавить
       */
-    addItem(textN: string): void {
+    addItem(textN: string, dateN: string): void {
 
         if(textN==null || textN==undefined || textN.trim()=="")
             return;	
@@ -104,7 +106,8 @@ export class NotesComponent implements OnInit{
                 id=item.id;
 		}
 		id=id+1;
-        this.items.push(new Item(textN, id));
+    
+    this.items.push(new Item(textN, id, new Date(dateN)));
     }
 
     /** 
@@ -119,10 +122,10 @@ export class NotesComponent implements OnInit{
   		for (var item of this.items) {
 
               if (item.id != id)
-                  newItems.push(new Item(item.textNote, item.id ));
+                  newItems.push(new Item(item.textNote, item.id,  item.dateOfBegin));
   		}
   		this.items=newItems;
-          this.selectedItem = null;
+      this.selectedItem = null;
   	}
 
     /** 
@@ -140,6 +143,21 @@ export class NotesComponent implements OnInit{
     notSelected() : void {
 
         this.selectedItem = null;
+    }
+    /** 
+      *   
+      */
+    getColor(dateN : Date) : string {
+
+        let myDate: Date;
+        myDate = new Date();
+        if (myDate > dateN)
+            return "green";
+        else
+          if (myDate <= dateN)
+            return "blue";
+          else
+            return "white";
     }
 }
 

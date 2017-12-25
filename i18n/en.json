@@ -12,7 +12,8 @@
 	"DETAIL":
 	{
 		"ID":"ID",
-		"Note":"Note"
+		"Note":"Note",
+		"Date":"Date"
 	},
 	"NOTES":
 	{

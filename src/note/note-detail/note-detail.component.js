@@ -14,6 +14,12 @@ var item_1 = require("../../item/item");
 var NoteDetailComponent = (function () {
     function NoteDetailComponent() {
     }
+    /**
+    *
+    */
+    NoteDetailComponent.prototype.getDate = function (dateString) {
+        return new Date(dateString);
+    };
     return NoteDetailComponent;
 }());
 __decorate([
@@ -23,8 +29,8 @@ __decorate([
 NoteDetailComponent = __decorate([
     core_1.Component({
         selector: 'note-detail',
-        template: "\n\t\t<div  class=\"form-inline form-group\"\n            *ngIf=\"item\">\n            <h3>{{item.textNote}}</h3>\n            <div><label>{{'DETAIL.ID' | translate}}: </label>{{item.id}}</div>\n            <div>\n                <label>{{'DETAIL.Note' | translate}}: </label>\n                <input class=\"form-control\" [(ngModel)]=\"item.textNote\" placeholder=\"textNote\"/>\n            </div>\n        </div>\n\t",
-        styles: ["\n      .form-group{\n        margin: 0 0 0 5em;\n        display: inline-block;\n\n    "]
+        template: "\n            <div  class=\"form-inline form-group\"\n                *ngIf=\"item\">\n                <h3>{{item.textNote}}</h3>\n                <div>\n                    <label>\n                        {{'DETAIL.ID' | translate}}: \n                    </label>\n                    {{item.id}}\n                </div>\n                <div>\n                    <label>\n                        {{'DETAIL.Note' | translate}}: \n                    </label>\n                    <input class=\"form-control\" [(ngModel)]=\"item.textNote\" placeholder=\"textNote\"/>\n                </div>\n                <div>\n                    <label>\n                        {{'DETAIL.Date' | translate}}:\n                    </label>\n                    {{item.dateOfBegin}}\n                </div>\n            </div>\n            ",
+        styles: ["\n            .form-group{\n             margin: 0 0 0 5em;\n             display: inline-block;\n          "]
     })
 ], NoteDetailComponent);
 exports.NoteDetailComponent = NoteDetailComponent;

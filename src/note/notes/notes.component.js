@@ -13,16 +13,30 @@ var core_1 = require("@angular/core");
 var item_1 = require("../../item/item");
 var note_service_1 = require("../note.service");
 var NotesComponent = (function () {
+    /**
+      * Конструктор класса
+      * @param=_noteService параметр, который передает доступ к хранилищу данных
+      */
     function NotesComponent(_noteService) {
         this._noteService = _noteService;
     }
+    /**
+      * Метод, который срабатывает при загрузке, вызывая метод получения данных из хранилища
+      */
     NotesComponent.prototype.ngOnInit = function () {
         this.getItems();
     };
+    /**
+      * Метод,который получает данные из хранилища
+      */
     NotesComponent.prototype.getItems = function () {
         this.items = this._noteService.getItems();
     };
-    NotesComponent.prototype.addItem = function (textN) {
+    /**
+      * Метод, который добавляет записку
+      * @param=textN строка, которую нужно добавить
+      */
+    NotesComponent.prototype.addItem = function (textN, dateN) {
         if (textN == null || textN == undefined || textN.trim() == "")
             return;
         var id;
@@ -33,8 +47,12 @@ var NotesComponent = (function () {
                 id = item.id;
         }
         id = id + 1;
-        this.items.push(new item_1.Item(textN, id));
+        this.items.push(new item_1.Item(textN, id, new Date(dateN)));
     };
+    /**
+      * Метод, который удаляет записку
+      * @param=id номер удаляемой строки
+      */
     NotesComponent.prototype.removeItem = function (id) {
         if (id == null)
             return;
@@ -42,25 +60,49 @@ var NotesComponent = (function () {
         for (var _i = 0, _a = this.items; _i < _a.length; _i++) {
             var item = _a[_i];
             if (item.id != id)
-                newItems.push(new item_1.Item(item.textNote, item.id));
+                newItems.push(new item_1.Item(item.textNote, item.id, item.dateOfBegin));
         }
         this.items = newItems;
         this.selectedItem = null;
     };
+    /**
+      * Метод, который запоминает выделенный элемент
+      * @param=item объект клааса Item
+      */
     NotesComponent.prototype.onSelected = function (item) {
         this.selectedItem = item;
     };
+    /**
+      * Метод, который снимает выделение с элемента
+      */
     NotesComponent.prototype.notSelected = function () {
         this.selectedItem = null;
+    };
+    /**
+      *
+      */
+    NotesComponent.prototype.getColor = function (dateN) {
+        var myDate;
+        myDate = new Date();
+        if (myDate > dateN)
+            return "green";
+        else if (myDate <= dateN)
+            return "blue";
+        else
+            return "white";
     };
     return NotesComponent;
 }());
 NotesComponent = __decorate([
     core_1.Component({
         selector: 'purchase-notes',
-        template: "\n    <div class=\"panel\">\n        <div class=\"form-inline\">\n            <div class=\"form-group\">\n                <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                <button class=\"btn btn-default btnw\" (click)=\"addItem(text)\">{{'NOTES.Add' | translate}}</button>\n            </div>\n        </div>\n    </div>\n    <div class=\"panel\">\n        <div class=\"form-inline\">\n            <div class=\"form-group\">\n                <input class=\"form-control\" [(ngModel)]=\"id\" placeholder = \"{{'NOTES.Number' | translate}}\" />\n                <button class=\"btn btn-default btnw\" (click)=\"removeItem(id)\">{{'NOTES.Remove' | translate}}</button>\n            </div>\n        </div>\n    </div>\n    <div class=\"panel\">\n        <ul class=\"notes\">\n            <li (click) = \"notSelected()\">\n                <span class=\"badge\">ID</span>{{'NOTES.NoteIn' | translate}}\n            </li>\n            <li *ngFor=\"let item of items\"\n                [class.selected]=\"item === selectedItem\"\n                (click) = \"onSelected(item)\"\n            > \n                <span class=\"badge\">{{item.id}}</span>{{item.textNote}}\n            </li>\n        </ul>\n        <note-detail [item]=\"selectedItem\"></note-detail>    \n    </div>        \n   ",
+        template: "<div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                            <input class=\"form-control\" [(ngModel)]=\"date\" placeholder = \"{{'NOTES.Date' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"addItem(text, date)\">\n                                {{'NOTES.Add' | translate}}\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"id\" placeholder = \"{{'NOTES.Number' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"removeItem(id)\">\n                                {{'NOTES.Remove' | translate}}\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <ul class=\"notes\">\n                        <li (click) = \"notSelected()\">\n                            <span class=\"badge\">\n                                ID\n                            </span>\n                            {{'NOTES.NoteIn' | translate}}\n                        </li>\n                        <li *ngFor=\"let item of items\"\n                            [class.selected]=\"item === selectedItem\"\n                            (click) = \"onSelected(item)\"\n                        > \n                            <span class=\"badge\">\n                                <font color={{getColor(item.dateOfBegin)}}>\n                                {{item.id}} \n                                </font>\n                            </span>\n                            {{item.textNote}}\n                        </li>\n                    </ul>\n                    <note-detail [item]=\"selectedItem\"></note-detail>    \n                </div>        \n               ",
         providers: []
-    }),
+    })
+    /**
+      * Класс, для работы с нашим списком
+      */
+    ,
     __metadata("design:paramtypes", [note_service_1.NoteService])
 ], NotesComponent);
 exports.NotesComponent = NotesComponent;

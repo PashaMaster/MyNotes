@@ -21,6 +21,12 @@ import { Item } from '../../item/item';
                     </label>
                     <input class="form-control" [(ngModel)]="item.textNote" placeholder="textNote"/>
                 </div>
+                <div>
+                    <label>
+                        {{'DETAIL.Date' | translate}}:
+                    </label>
+                    {{item.dateOfBegin}}
+                </div>
             </div>
             `,
     styles:[`
@@ -37,4 +43,11 @@ export class NoteDetailComponent {
     */
 	@Input()
 	item: Item;	
+    /** 
+    *  
+    */
+    getDate(dateString: string)
+    {
+        return new Date(dateString);
+    }
 }

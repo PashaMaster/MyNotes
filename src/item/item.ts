@@ -14,13 +14,19 @@ export class Item{
 	textNote: string;
     
 	/**
+	  * Поле которое хранит дату
+	  */
+	dateOfBegin: Date;
+	/**
 	  * Конструктор класса
 	  * @param=id номер записки
 	  * @param=textNote текст записки
+	  * @param=dateOfBegin дата
 	  */
-	constructor(textNote: string, id: number) {
+	constructor(textNote: string, id: number, dateOfBegin: Date) {
   
 		this.id=id;
         this.textNote = textNote;
+		this.dateOfBegin = dateOfBegin;
     }
 }

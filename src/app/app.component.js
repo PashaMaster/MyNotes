@@ -10,9 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var note_service_1 = require("../note/note.service");
 var core_2 = require("@ngx-translate/core");
+var note_service_1 = require("../note/note.service");
 var AppComponent = (function () {
+    /**
+      * Конструктор класса, в котором идет определение выбранного языка из списка и просходит перевод страницы
+      * @param=translate сервис, который хранит все необходимые параметры для перевода
+      */
     function AppComponent(translate) {
         this.translate = translate;
         translate.addLangs(["en", "ru"]);
@@ -25,7 +29,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'purchase-app',
-        template: "\n    <div class=\"language\">\n        <label>\n            {{'HOME.Language' | translate}}\n            <select #langSelect (change)=\"translate.use(langSelect.value)\">\n              <option *ngFor=\"let lang of translate.getLangs()\" [value]=\"lang\" [selected]=\"lang === translate.currentLang\">{{ lang }}</option>\n            </select>\n        </label>\n    </div>\n    <div class=\"title\">\n        <h1> {{'HOME.Title' | translate}} </h1>        \n    </div>\n    <div class=\"panel\">\n        <ul class=\"nav\">\n            <li>\n                <a routerLink=\"/dashboard\">{{'HOME.ButtonDashboard' | translate}}</a>\n            </li>\n            <li>\n            \t<a routerLink=\"/notes\">{{'HOME.ButtonNotes' | translate}}</a>\n            </li>\n        </ul>\n    </div>   \n    <router-outlet></router-outlet>\n    ",
+        template: "\n                <div class=\"language\">\n                    <label>\n                        {{'HOME.Language' | translate}}\n                        <select #langSelect (change)=\"translate.use(langSelect.value)\">\n                            <option *ngFor=\"let lang of translate.getLangs()\" [value]=\"lang\" [selected]=\"lang === translate.currentLang\">\n                                {{ lang }}\n                            </option>\n                        </select>\n                    </label>\n                </div>\n                <div class=\"title\">\n                    <h1> {{'HOME.Title' | translate}} </h1>        \n                </div>\n                <div class=\"panel\">\n                    <ul class=\"nav\">\n                        <li>\n                            <a routerLink=\"/dashboard\">\n                                {{'HOME.ButtonDashboard' | translate}}\n                            </a>\n                        </li>\n                        <li>\n                        \t<a routerLink=\"/notes\">\n                                {{'HOME.ButtonNotes' | translate}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>   \n                <router-outlet></router-outlet>\n                ",
         providers: [note_service_1.NoteService]
     }),
     __metadata("design:paramtypes", [core_2.TranslateService])

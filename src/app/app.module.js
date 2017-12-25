@@ -12,15 +12,22 @@ var core_1 = require("@angular/core");
 var core_2 = require("@ngx-translate/core");
 var http_loader_1 = require("@ngx-translate/http-loader");
 var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
 var app_component_1 = require("./app.component");
 var note_detail_component_1 = require("../note/note-detail/note-detail.component");
 var notes_component_1 = require("../note/notes/notes.component");
 var dashboard_component_1 = require("../main-page/dashboard.component");
-var router_1 = require("@angular/router");
+/**
+  * Переменная-константа, которая определяет навигацию по страницам, так же задает начальную страницу при запуске
+  */
 var routers = [
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent, userAsDefault: true },
     { path: 'notes', component: notes_component_1.NotesComponent }
 ];
+/**
+  * Функция, которая определяет параметры для перевода(открывает json файл определенного языка)
+  * @param=httpClient переменная, передпющая данные клиента
+  */
 function HttpLoaderFactory(httpClient) {
     return new http_loader_1.TranslateHttpLoader(httpClient, "i18n/", ".json");
 }
@@ -32,7 +39,12 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        declarations: [app_component_1.AppComponent, note_detail_component_1.NoteDetailComponent, notes_component_1.NotesComponent, dashboard_component_1.DashboardComponent],
+        declarations: [
+            app_component_1.AppComponent,
+            note_detail_component_1.NoteDetailComponent,
+            notes_component_1.NotesComponent,
+            dashboard_component_1.DashboardComponent
+        ],
         imports: [
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
@@ -47,7 +59,9 @@ AppModule = __decorate([
             })
         ],
         providers: [],
-        bootstrap: [app_component_1.AppComponent]
+        bootstrap: [
+            app_component_1.AppComponent
+        ]
     })
 ], AppModule);
 exports.AppModule = AppModule;
