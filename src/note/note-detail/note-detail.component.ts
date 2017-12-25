@@ -25,7 +25,13 @@ import { Item } from '../../item/item';
                     <label>
                         {{'DETAIL.Date' | translate}}:
                     </label>
-                    {{item.dateOfBegin}}
+                    {{getDate(item.dateOfBegin)}}
+                </div>
+                <div>
+                    <label>
+                        {{'DETAIL.Autor' | translate}}:
+                    </label>
+                    {{item.autor}}
                 </div>
             </div>
             `,
@@ -44,10 +50,13 @@ export class NoteDetailComponent {
 	@Input()
 	item: Item;	
     /** 
-    *  
+    *  Метод вывода даты, удобной для пользователя
     */
-    getDate(dateString: string)
+    getDate(date: Date)
     {
-        return new Date(dateString);
+        if (date.toDateString()=="Invalid Date")
+            return "-";
+        else    
+            return date.toDateString();
     }
 }

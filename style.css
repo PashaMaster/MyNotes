@@ -1,3 +1,21 @@
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 0 0 1.5em 6em;
+  width: 40%;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  height: 8px;
+  cursor: pointer;
+  animate: 0.2s;
+  border: 1px solid #575656;
+  background: #607D8B;
+}
+
 .language{
   margin: 0 0 2em 6em;
   list-style-type: none;

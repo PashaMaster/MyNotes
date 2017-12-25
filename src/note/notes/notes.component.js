@@ -19,6 +19,7 @@ var NotesComponent = (function () {
       */
     function NotesComponent(_noteService) {
         this._noteService = _noteService;
+        this.countDay = 0;
     }
     /**
       * Метод, который срабатывает при загрузке, вызывая метод получения данных из хранилища
@@ -36,7 +37,7 @@ var NotesComponent = (function () {
       * Метод, который добавляет записку
       * @param=textN строка, которую нужно добавить
       */
-    NotesComponent.prototype.addItem = function (textN, dateN) {
+    NotesComponent.prototype.addItem = function (textN, dateN, nameN) {
         if (textN == null || textN == undefined || textN.trim() == "")
             return;
         var id;
@@ -47,7 +48,7 @@ var NotesComponent = (function () {
                 id = item.id;
         }
         id = id + 1;
-        this.items.push(new item_1.Item(textN, id, new Date(dateN)));
+        this.items.push(new item_1.Item(textN, id, new Date(dateN), nameN));
     };
     /**
       * Метод, который удаляет записку
@@ -60,7 +61,7 @@ var NotesComponent = (function () {
         for (var _i = 0, _a = this.items; _i < _a.length; _i++) {
             var item = _a[_i];
             if (item.id != id)
-                newItems.push(new item_1.Item(item.textNote, item.id, item.dateOfBegin));
+                newItems.push(new item_1.Item(item.textNote, item.id, item.dateOfBegin, item.autor));
         }
         this.items = newItems;
         this.selectedItem = null;
@@ -79,15 +80,27 @@ var NotesComponent = (function () {
         this.selectedItem = null;
     };
     /**
-      *
+      *  Метод переопределения переменной countDay
+      *  @param=num новое значение
+      */
+    NotesComponent.prototype.getCount = function (num) {
+        this.countDay = num;
+    };
+    /**
+      *  Метод для получения цвета, зависящего от даты
+      *  @param=dateN дата заметки
       */
     NotesComponent.prototype.getColor = function (dateN) {
         var myDate;
         myDate = new Date();
+        var day, count;
+        day = myDate.getDate();
+        count = this.countDay;
+        myDate.setDate(day + count);
         if (myDate > dateN)
-            return "green";
+            return "red";
         else if (myDate <= dateN)
-            return "blue";
+            return "green";
         else
             return "white";
     };
@@ -96,7 +109,7 @@ var NotesComponent = (function () {
 NotesComponent = __decorate([
     core_1.Component({
         selector: 'purchase-notes',
-        template: "<div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                            <input class=\"form-control\" [(ngModel)]=\"date\" placeholder = \"{{'NOTES.Date' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"addItem(text, date)\">\n                                {{'NOTES.Add' | translate}}\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"id\" placeholder = \"{{'NOTES.Number' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"removeItem(id)\">\n                                {{'NOTES.Remove' | translate}}\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <ul class=\"notes\">\n                        <li (click) = \"notSelected()\">\n                            <span class=\"badge\">\n                                ID\n                            </span>\n                            {{'NOTES.NoteIn' | translate}}\n                        </li>\n                        <li *ngFor=\"let item of items\"\n                            [class.selected]=\"item === selectedItem\"\n                            (click) = \"onSelected(item)\"\n                        > \n                            <span class=\"badge\">\n                                <font color={{getColor(item.dateOfBegin)}}>\n                                {{item.id}} \n                                </font>\n                            </span>\n                            {{item.textNote}}\n                        </li>\n                    </ul>\n                    <note-detail [item]=\"selectedItem\"></note-detail>    \n                </div>        \n               ",
+        template: " <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input type=\"range\" min=\"-200\" max=\"200\" value=\"1\" [(ngModel)]=\"count\" (change)=\"getCount(count)\">\n                            <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                            <input class=\"form-control\" type=\"date\" [(ngModel)]=\"date\" placeholder = \"{{'NOTES.Date' | translate}}\" />\n                            <input class=\"form-control\" [(ngModel)]=\"name\" placeholder = \"{{'NOTES.Name' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"addItem(text, date, name)\">\n                                {{'NOTES.Add' | translate}}\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"id\" placeholder = \"{{'NOTES.Number' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"removeItem(id)\">\n                                {{'NOTES.Remove' | translate}}                                \n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <ul class=\"notes\">\n                        <li (click) = \"notSelected()\">\n                            <span class=\"badge\">\n                                ID\n                            </span>\n                            {{'NOTES.NoteIn' | translate}}\n                        </li>\n                        <li *ngFor=\"let item of items\"\n                            [class.selected]=\"item === selectedItem\"\n                            (click) = \"onSelected(item)\"\n                        > \n                            <span class=\"badge\">\n                                <font color={{getColor(item.dateOfBegin)}}>\n                                {{item.id}} \n                                </font>\n                            </span>\n                            {{item.textNote}}\n                        </li>\n                    </ul>\n                    <note-detail [item]=\"selectedItem\"></note-detail>    \n                </div>   \n               ",
         providers: []
     })
     /**

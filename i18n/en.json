@@ -13,7 +13,8 @@
 	{
 		"ID":"ID",
 		"Note":"Note",
-		"Date":"Date"
+		"Date":"Date",
+		"Autor":"Autor"
 	},
 	"NOTES":
 	{
@@ -21,6 +22,8 @@
 		"Note":"Note",
 		"Number":"Number note",
 		"Remove":"Remove",
-		"NoteIn":"Note"
+		"NoteIn":"Note",
+		"Name":"Name",
+		"Date":"Date"
 	}
 }

@@ -6,12 +6,14 @@ import { NoteService } from '../note.service';    
 
 @Component({
     selector: 'purchase-notes',
-    template: `<div class="panel">
+    template: ` <div class="panel">
                     <div class="form-inline">
                         <div class="form-group">
+                            <input type="range" min="-200" max="200" value="1" [(ngModel)]="count" (change)="getCount(count)">
                             <input class="form-control" [(ngModel)]="text" placeholder = "{{'NOTES.Note' | translate}}" />
-                            <input class="form-control" [(ngModel)]="date" placeholder = "{{'NOTES.Date' | translate}}" />
-                            <button class="btn btn-default btnw" (click)="addItem(text, date)">
+                            <input class="form-control" type="date" [(ngModel)]="date" placeholder = "{{'NOTES.Date' | translate}}" />
+                            <input class="form-control" [(ngModel)]="name" placeholder = "{{'NOTES.Name' | translate}}" />
+                            <button class="btn btn-default btnw" (click)="addItem(text, date, name)">
                                 {{'NOTES.Add' | translate}}
                             </button>
                         </div>
@@ -22,7 +24,7 @@ import { NoteService } from '../note.service';    
                         <div class="form-group">
                             <input class="form-control" [(ngModel)]="id" placeholder = "{{'NOTES.Number' | translate}}" />
                             <button class="btn btn-default btnw" (click)="removeItem(id)">
-                                {{'NOTES.Remove' | translate}}
+                                {{'NOTES.Remove' | translate}}                                
                             </button>
                         </div>
                     </div>
@@ -48,7 +50,7 @@ import { NoteService } from '../note.service';    
                         </li>
                     </ul>
                     <note-detail [item]="selectedItem"></note-detail>    
-                </div>        
+                </div>   
                `,
     providers: []
 })
@@ -72,7 +74,9 @@ export class NotesComponent implements OnInit{
       * Конструктор класса
       * @param=_noteService параметр, который передает доступ к хранилищу данных 
       */
-    constructor(private _noteService: NoteService) {}
+    constructor(private _noteService: NoteService) {
+      this.countDay=0;
+    }
 
     /** 
       * Метод, который срабатывает при загрузке, вызывая метод получения данных из хранилища
@@ -94,7 +98,7 @@ export class NotesComponent implements OnInit{
       * Метод, который добавляет записку
       * @param=textN строка, которую нужно добавить
       */
-    addItem(textN: string, dateN: string): void {
+    addItem(textN: string, dateN: Date, nameN: string): void {
 
         if(textN==null || textN==undefined || textN.trim()=="")
             return;	
@@ -107,7 +111,7 @@ export class NotesComponent implements OnInit{
 		}
 		id=id+1;
     
-    this.items.push(new Item(textN, id, new Date(dateN)));
+    this.items.push(new Item(textN, id, new Date(dateN), nameN));
     }
 
     /** 
@@ -122,7 +126,7 @@ export class NotesComponent implements OnInit{
   		for (var item of this.items) {
 
               if (item.id != id)
-                  newItems.push(new Item(item.textNote, item.id,  item.dateOfBegin));
+                  newItems.push(new Item(item.textNote, item.id,  item.dateOfBegin, item.autor));
   		}
   		this.items=newItems;
       this.selectedItem = null;
@@ -144,18 +148,38 @@ export class NotesComponent implements OnInit{
 
         this.selectedItem = null;
     }
+
     /** 
-      *   
+      * Переменная, которая хранит значение ползунка  
+      */
+    countDay:number;
+
+    /** 
+      *  Метод переопределения переменной countDay
+      *  @param=num новое значение
+      */        
+    public getCount(num : number)
+    {
+      this.countDay=num;
+    }    
+
+    /** 
+      *  Метод для получения цвета, зависящего от даты
+      *  @param=dateN дата заметки
       */
     getColor(dateN : Date) : string {
 
         let myDate: Date;
         myDate = new Date();
+        let day, count:number;
+        day = myDate.getDate();
+        count = this.countDay;
+        myDate.setDate(day + count);        
         if (myDate > dateN)
-            return "green";
+            return "red";
         else
           if (myDate <= dateN)
-            return "blue";
+            return "green";
           else
             return "white";
     }
