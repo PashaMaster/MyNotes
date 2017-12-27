@@ -15,14 +15,14 @@ import { NoteService } from '../note.service';    
                             <input class="form-control" [(ngModel)]="name" placeholder = "{{'NOTES.Name' | translate}}" />
                             <button class="btn btn-default btnw" (click)="addItem(text, date, name)">
                                 {{'NOTES.Add' | translate}}
-                            </button>
+                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="panel">
                     <div class="form-inline">
                         <div class="form-group">
-                            <input class="form-control" [(ngModel)]="id" placeholder = "{{'NOTES.Number' | translate}}" />
+                            <input class="form-control" [(ngModel)]="id" placeholder = "{{'NOTES.Number' | translate}}"/>
                             <button class="btn btn-default btnw" (click)="removeItem(id)">
                                 {{'NOTES.Remove' | translate}}                                
                             </button>
@@ -66,32 +66,24 @@ export class NotesComponent implements OnInit{
     selectedItem: Item;
 
     /** 
-      * Поле, которое хранит в себе массив элементов списка
-      */
-    items: Item[];
-
-    /** 
       * Конструктор класса
       * @param=_noteService параметр, который передает доступ к хранилищу данных 
       */
     constructor(private _noteService: NoteService) {
       this.countDay=0;
     }
+  
+    /** 
+      * Поле, которое хранит в себе массив элементов списка
+      */
+    items: Item[]=[];
 
     /** 
       * Метод, который срабатывает при загрузке, вызывая метод получения данных из хранилища
       */
     ngOnInit() {
- 
-        this.getItems();
-    }
-
-    /** 
-      * Метод,который получает данные из хранилища
-      */
-    getItems() {
-
-        this.items = this._noteService.getItems();
+        
+        this._noteService.getItems().subscribe(data => this.items=data);
     }
 
     /** 
@@ -110,8 +102,7 @@ export class NotesComponent implements OnInit{
                 id=item.id;
 		}
 		id=id+1;
-    
-    this.items.push(new Item(textN, id, new Date(dateN), nameN));
+    this.items.push(new Item(textN, id, new Date(dateN), nameN));
     }
 
     /** 

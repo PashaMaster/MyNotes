@@ -19,19 +19,18 @@ var NotesComponent = (function () {
       */
     function NotesComponent(_noteService) {
         this._noteService = _noteService;
+        /**
+          * Поле, которое хранит в себе массив элементов списка
+          */
+        this.items = [];
         this.countDay = 0;
     }
     /**
       * Метод, который срабатывает при загрузке, вызывая метод получения данных из хранилища
       */
     NotesComponent.prototype.ngOnInit = function () {
-        this.getItems();
-    };
-    /**
-      * Метод,который получает данные из хранилища
-      */
-    NotesComponent.prototype.getItems = function () {
-        this.items = this._noteService.getItems();
+        var _this = this;
+        this._noteService.getItems().subscribe(function (data) { return _this.items = data; });
     };
     /**
       * Метод, который добавляет записку
@@ -109,7 +108,7 @@ var NotesComponent = (function () {
 NotesComponent = __decorate([
     core_1.Component({
         selector: 'purchase-notes',
-        template: " <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input type=\"range\" min=\"-200\" max=\"200\" value=\"1\" [(ngModel)]=\"count\" (change)=\"getCount(count)\">\n                            <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                            <input class=\"form-control\" type=\"date\" [(ngModel)]=\"date\" placeholder = \"{{'NOTES.Date' | translate}}\" />\n                            <input class=\"form-control\" [(ngModel)]=\"name\" placeholder = \"{{'NOTES.Name' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"addItem(text, date, name)\">\n                                {{'NOTES.Add' | translate}}\n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"id\" placeholder = \"{{'NOTES.Number' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"removeItem(id)\">\n                                {{'NOTES.Remove' | translate}}                                \n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <ul class=\"notes\">\n                        <li (click) = \"notSelected()\">\n                            <span class=\"badge\">\n                                ID\n                            </span>\n                            {{'NOTES.NoteIn' | translate}}\n                        </li>\n                        <li *ngFor=\"let item of items\"\n                            [class.selected]=\"item === selectedItem\"\n                            (click) = \"onSelected(item)\"\n                        > \n                            <span class=\"badge\">\n                                <font color={{getColor(item.dateOfBegin)}}>\n                                {{item.id}} \n                                </font>\n                            </span>\n                            {{item.textNote}}\n                        </li>\n                    </ul>\n                    <note-detail [item]=\"selectedItem\"></note-detail>    \n                </div>   \n               ",
+        template: " <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input type=\"range\" min=\"-200\" max=\"200\" value=\"1\" [(ngModel)]=\"count\" (change)=\"getCount(count)\">\n                            <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                            <input class=\"form-control\" type=\"date\" [(ngModel)]=\"date\" placeholder = \"{{'NOTES.Date' | translate}}\" />\n                            <input class=\"form-control\" [(ngModel)]=\"name\" placeholder = \"{{'NOTES.Name' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"addItem(text, date, name)\">\n                                {{'NOTES.Add' | translate}}\n                             </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"id\" placeholder = \"{{'NOTES.Number' | translate}}\"/>\n                            <button class=\"btn btn-default btnw\" (click)=\"removeItem(id)\">\n                                {{'NOTES.Remove' | translate}}                                \n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <ul class=\"notes\">\n                        <li (click) = \"notSelected()\">\n                            <span class=\"badge\">\n                                ID\n                            </span>\n                            {{'NOTES.NoteIn' | translate}}\n                        </li>\n                        <li *ngFor=\"let item of items\"\n                            [class.selected]=\"item === selectedItem\"\n                            (click) = \"onSelected(item)\"\n                        > \n                            <span class=\"badge\">\n                                <font color={{getColor(item.dateOfBegin)}}>\n                                {{item.id}} \n                                </font>\n                            </span>\n                            {{item.textNote}}\n                        </li>\n                    </ul>\n                    <note-detail [item]=\"selectedItem\"></note-detail>    \n                </div>   \n               ",
         providers: []
     })
     /**
@@ -119,4 +118,3 @@ NotesComponent = __decorate([
     __metadata("design:paramtypes", [note_service_1.NoteService])
 ], NotesComponent);
 exports.NotesComponent = NotesComponent;
-//# sourceMappingURL=notes.component.js.map

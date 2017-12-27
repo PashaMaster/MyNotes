@@ -1,4 +1,5 @@
 import { Item } from '../item/item';     
+import * as data from './mock.json';
 
 /** 
   * Массив типа Item, который хранит первоначальные записки
@@ -11,3 +12,5 @@ export var ITEMS: Item[] =
         { id: 4, textNote: "What do you do?", dateOfBegin: new Date("2017-07-26"), autor: "Petja"}
   
     ];
+
+

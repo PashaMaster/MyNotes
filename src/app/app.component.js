@@ -35,4 +35,3 @@ AppComponent = __decorate([
     __metadata("design:paramtypes", [core_2.TranslateService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map

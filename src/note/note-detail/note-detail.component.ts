@@ -26,12 +26,12 @@ import { Item } from '../../item/item';
                         {{'DETAIL.Date' | translate}}:
                     </label>
                     {{getDate(item.dateOfBegin)}}
-                </div>
+                <div>
                 <div>
                     <label>
                         {{'DETAIL.Autor' | translate}}:
                     </label>
-                    {{item.autor}}
+                    <input class="form-control" [(ngModel)]="item.autor" placeholder="autorNote"/>
                 </div>
             </div>
             `,
