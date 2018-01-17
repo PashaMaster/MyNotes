@@ -15,7 +15,7 @@ var DashboardComponent = (function () {
 DashboardComponent = __decorate([
     core_1.Component({
         selector: 'my-dashboard',
-        template: "<h3>{{ 'Dashboard.h3' | translate }}</h3>"
+        template: "\n    \t\t<div  class=\"form-inline form-group\">\n    \t\t\t<h3 class=\"text-color\">{{ 'Dashboard.h3' | translate }}</h3>\n            </div>\n    "
     })
 ], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;

@@ -24,12 +24,18 @@ var NoteDetailComponent = (function () {
         });
         this.item = new item_1.Item(this.textNote, this.id, this.dateOfBegin, this.autor);
     }
+    NoteDetailComponent.prototype.getDate = function (date) {
+        if (date.toString() == "Invalid Date")
+            return null;
+        else
+            return date;
+    };
     return NoteDetailComponent;
 }());
 NoteDetailComponent = __decorate([
     core_1.Component({
         selector: 'note-detail',
-        template: "\n\n           <div  class=\"form-inline form-group\"\n                *ngIf=\"item\">\n                <h3>{{item.textNote}}</h3>\n                <div>\n                    <label>\n                        {{'DETAIL.ID' | translate}}: \n                    </label>\n                    {{item.id}}\n                </div>\n                <div>\n                    <label>\n                        {{'DETAIL.Note' | translate}}: \n                    </label>\n                    {{item.textNote}}\n                </div>\n                <div>\n                    <label>\n                        {{'DETAIL.Date' | translate}}:\n                    </label>\n                    {{item.dateOfBegin | date}}\n                <div>\n                <div>\n                    <label>\n                        {{'DETAIL.Autor' | translate}}:\n                    </label>\n                    {{item.autor}}\n                </div>\n            </div>\n            ",
+        template: "\n\n           <div  class=\"form-inline form-group\"\n                *ngIf=\"item\">\n                <h3 class=\"text-color\">{{item.textNote}}</h3>\n                <div class=\"text-color\">\n                    <label>\n                        {{'DETAIL.ID' | translate}}: \n                    </label>\n                    {{item.id}}\n                </div>\n                <div class=\"text-color\">\n                    <label>\n                        {{'DETAIL.Note' | translate}}: \n                    </label>\n                    {{item.textNote}}\n                </div>\n                <div class=\"text-color\">\n                    <label>\n                        {{'DETAIL.Autor' | translate}}:\n                    </label>\n                    {{item.autor}}\n                </div>\n                <div class=\"text-color\">\n                    <label>\n                        {{'DETAIL.Date' | translate}}:\n                    </label>\n                    {{getDate(item.dateOfBegin) | date}} \n                <div>                \n            </div>\n            ",
         styles: ["\n            .form-group{\n             margin: 0 0 0 5em;\n             display: inline-block;\n          "]
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute])

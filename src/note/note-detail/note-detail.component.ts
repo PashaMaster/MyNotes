@@ -11,31 +11,31 @@ import { Item } from '../../item/item';
 
            <div  class="form-inline form-group"
                 *ngIf="item">
-                <h3>{{item.textNote}}</h3>
-                <div>
+                <h3 class="text-color">{{item.textNote}}</h3>
+                <div class="text-color">
                     <label>
                         {{'DETAIL.ID' | translate}}: 
                     </label>
                     {{item.id}}
                 </div>
-                <div>
+                <div class="text-color">
                     <label>
                         {{'DETAIL.Note' | translate}}: 
                     </label>
                     {{item.textNote}}
                 </div>
-                <div>
-                    <label>
-                        {{'DETAIL.Date' | translate}}:
-                    </label>
-                    {{item.dateOfBegin | date}}
-                <div>
-                <div>
+                <div class="text-color">
                     <label>
                         {{'DETAIL.Autor' | translate}}:
                     </label>
                     {{item.autor}}
                 </div>
+                <div class="text-color">
+                    <label>
+                        {{'DETAIL.Date' | translate}}:
+                    </label>
+                    {{getDate(item.dateOfBegin) | date}} 
+                <div>                
             </div>
             `,
     styles:[`
@@ -57,7 +57,6 @@ export class NoteDetailComponent {
 
     constructor(private route: ActivatedRoute){
         
-        
         this.routeSubscription = route.params.subscribe(params=>this.id=params['id']);
         this.querySubscription = route.queryParams.subscribe(
             (queryParam: any) => {
@@ -67,6 +66,14 @@ export class NoteDetailComponent {
             }
         );
         this.item=new Item(this.textNote ,this.id, this.dateOfBegin, this.autor);  
+    }
+
+    getDate(date:Date): Date
+    {
+        if(date.toString()=="Invalid Date")
+            return null
+        else
+            return date;
     }
 		
 }

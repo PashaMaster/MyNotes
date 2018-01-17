@@ -26,7 +26,9 @@ import { NoteService } from '../note.service';    
                             <span class="badge">
                                 ID
                             </span>
-                            {{'NOTES.NoteIn' | translate}}
+                            <div class="note" >
+                              {{'NOTES.NoteIn' | translate}}
+                            </div>
                         </li>
                         
                         <li *ngFor="let item of items"

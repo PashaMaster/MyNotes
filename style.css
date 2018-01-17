@@ -15,39 +15,48 @@ input[type=range]::-webkit-slider-runnable-track {
   border: 1px solid #575656;
   background: #607D8B;
 }
-
-.language{
-  margin: 0 0 2em 6em;
-  list-style-type: none;
- }
-
-.nav {
-  margin: 0 0 2em 5em;
-  list-style-type: none;
-  padding: 0;
-  width: 15em;
-  border-radius: 4px;
+html {
+  box-sizing: border-box;
 }
-.nav li {
-
-  cursor: pointer;
-  position: relative;
-  left: 0;
-  background-color: #EEE;
-  margin: 1em 2em;
-  padding: 1em;
-  border-radius: 4px;  
-  display: block;
+body,
+html {
+  width: 100%;
+  height: 100%;
+  background: #1c1d22;
 }
-  
-.nav .text {
-  position: relative;
-  top: -3px;
+.text-color {
+   color: white;
 }
-
-.selected {
-  background-color: #EEE !important;
+.menu {
+  font: 15px Verdana, 'Lucida Grande';
+  max-width: 720px;
+  margin: 0 auto;
+  height: 50px;
+  list-style: none;
+}
+.menu .title {
+  font-size: 17px;
   color: white;
+  margin-right: 10px;
+}
+.menu li {
+  display: inline-block;
+  width: 125px;
+  height: 50px;
+  transition: background-position-x 0.9s linear;
+  text-align: center;
+}
+.menu li a {
+    color: #777;
+    text-decoration: none;
+    transition: all 0.45s;
+}
+.menu li:hover a{
+    color: #DDD;
+
+}
+.panel {
+  background: #1c1d22;
 }
 .notes {
   margin: 0 0 2em 5em;
@@ -81,6 +90,7 @@ input[type=range]::-webkit-slider-runnable-track {
 .notes .badge {
   display: inline-block;
   font-size: small;
+  width: 5%;
   color: white;
   padding: 0.8em 0.7em 0 0.7em;
   background-color: #607D8B;
@@ -94,7 +104,8 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 .notes .note {
   display: inline-block;
-  width: 88%;
+  width: 86%;
+  color: #1d1d11;
 }
 .notes .delete {
   display: inline-block;
@@ -109,11 +120,7 @@ input[type=range]::-webkit-slider-runnable-track {
     text-decoration: none;
 }
 .notes .delete-link:hover {
-    background-color: #B0E0E6;
-}
-.title {
-  margin: 0 3em 2em 20em;
-  color: #607D8B;
+    background-color: #DDD;
 }
 .form-group{
   margin: 0 0 0 5em;
@@ -122,3 +129,4 @@ input[type=range]::-webkit-slider-runnable-track {
 .btnw{
   width: 6em;
 }
+

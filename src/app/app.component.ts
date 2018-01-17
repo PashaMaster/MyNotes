@@ -8,33 +8,36 @@ import { NoteService } from '../note/note.service';
 @Component({
     selector: 'purchase-app',
     template: `
-                <div class="language">
-                    <label>
-                        {{'HOME.Language' | translate}}
-                        <select #langSelect (change)="translate.use(langSelect.value)">
-                            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
-                                {{ lang }}
-                            </option>
-                        </select>
-                    </label>
-                </div>
-                <div class="title">
-                    <h1> {{'HOME.Title' | translate}} </h1>        
-                </div>
-                <div class="panel">
-                    <ul class="nav">
+                <div class="menu">                    
+                    <ul>
+                        <li>
+                            <div class="title">
+                                {{'HOME.Title' | translate}}
+                            </div>
+                        </li>
                         <li>
                             <a routerLink="/dashboard">
-                                {{'HOME.ButtonDashboard' | translate}}
+                               {{'HOME.ButtonDashboard' | translate}}
                             </a>
                         </li>
                         <li>
-                        	<a routerLink="/notes">
+                            <a routerLink="/notes">
                                 {{'HOME.ButtonNotes' | translate}}
+                            </a>  
+                        </li>
+                        <li>
+                            <a>
+                                {{'HOME.Language' | translate}}
+                                <select #langSelect (change)="translate.use(langSelect.value)">
+                                    <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
+                                        {{ lang }}
+                                    </option>
+                                </select>
                             </a>
                         </li>
+                        
                     </ul>
-                </div>   
+                </div>
                 <router-outlet></router-outlet>
                 `,
     providers: [NoteService]
