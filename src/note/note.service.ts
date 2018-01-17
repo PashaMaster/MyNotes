@@ -18,7 +18,7 @@ export class NoteService {
       */	
 	constructor(private http: HttpClient){ }
       
-	/** 
+	  /** 
       * Метод, который получает данные из хранилища
       * @return=Observable<Item[]> объект, который содержит результаты запроса
       */

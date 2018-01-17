@@ -62,7 +62,7 @@ html {
   margin: 0 0 2em 5em;
   list-style-type: none;
   padding: 0;
-  width: 45em;
+  width: 53em;
 }
 .notes li {
   cursor: pointer;
@@ -130,3 +130,5 @@ html {
   width: 6em;
 }
 
+input.ng-touched.ng-invalid.form-control {border:solid red 2px;}
+input.ng-touched.ng-valid.form-control {border:solid green 2px;}

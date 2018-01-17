@@ -9,15 +9,18 @@ import { NoteService } from '../note.service';    
     selector: 'purchase-notes',
     template: ` <div class="panel">
                     <div class="form-inline">
-                        <div class="form-group">
-                            <input type="range" min="-200" max="200" value="1" [(ngModel)]="count" (change)="getCount(count)">
-                            <input class="form-control" [(ngModel)]="text" placeholder = "{{'NOTES.Note' | translate}}" />
-                            <input class="form-control" type="date" [(ngModel)]="date" placeholder = "{{'NOTES.Date' | translate}}" />
-                            <input class="form-control" [(ngModel)]="name" placeholder = "{{'NOTES.Name' | translate}}" />
-                            <button class="btn btn-default btnw" (click)="addItem(text, date, name)">
-                                {{'NOTES.Add' | translate}}
-                             </button>
-                        </div>
+                        <input type="range" min="-200" max="200" value="1" [(ngModel)]="count" (change)="getCount(count)">
+                        <form class="form-group">
+                          <input class="form-control" name="text" [(ngModel)]="textN" placeholder = "{{'NOTES.Note' | translate}}" #text="ngModel" required/>
+                          <input class="form-control" name="date" type="date" [(ngModel)]="dateN" placeholder = "{{'NOTES.Date' | translate}}" />
+                          <input class="form-control" name="name" [(ngModel)]="nameN" placeholder = "{{'NOTES.Name' | translate}}" />
+                          <button [disabled]="text.invalid" class="btn btn-default btnw" (click)="addItem(textN, dateN, nameN)">
+                              {{'NOTES.Add' | translate}}
+                           </button>
+                           <button type="reset" class="btn btn-default btnw">
+                              {{'NOTES.Clear' | translate}}
+                           </button>
+                        </form>                        
                     </div>
                 </div>
                 <div class="panel">
@@ -73,6 +76,8 @@ export class NotesComponent implements OnInit{
       this.countDay=0;
     }
   
+    item:Item;
+
     /** 
       * Поле, которое хранит в себе массив элементов списка
       */
@@ -91,19 +96,13 @@ export class NotesComponent implements OnInit{
       * @param=textN строка, которую нужно добавить
       */
     addItem(textN: string, dateN: Date, nameN: string): void {
-
-        if(textN==null || textN==undefined || textN.trim()=="")
-            return;	
         let id: number;
-		id=0;
-		//for (var item of this.items) {
-    this.items.forEach(function(item,i, items) {
-			if (item.id>id)
-                id=item.id;
-    
-		});
-		id=id+1;
-    this.items.push(new Item(textN, id, new Date(dateN), nameN));
+  		id=0;
+      this.items.forEach(function(item,i, items) {
+  			if (item.id>id)
+                  id=item.id;});
+  		id=id+1;
+      this.items.push(new Item(textN, id, new Date(dateN), nameN));
     }
 
     /** 
@@ -143,6 +142,9 @@ export class NotesComponent implements OnInit{
         this.selectedItem = null;
     }
 
+    /** 
+      * Метод, который производи переход на новую стр для просмотра детализированых данных записки
+      */
     goToItem()
     {
       this.router.navigate(
@@ -156,7 +158,6 @@ export class NotesComponent implements OnInit{
             }
         );
     }
-
 
     /** 
       * Переменная, которая хранит значение ползунка  

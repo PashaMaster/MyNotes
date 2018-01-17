@@ -21,9 +21,9 @@ var NoteService = (function () {
         this.http = http;
     }
     /**
-      * Метод, который получает данные из хранилища
-      * @return=Observable<Item[]> объект, который содержит результаты запроса
-      */
+    * Метод, который получает данные из хранилища
+    * @return=Observable<Item[]> объект, который содержит результаты запроса
+    */
     NoteService.prototype.getItems = function () {
         return this.http.get('./src/mock/mock.json').map(function (data) {
             var itemsList = data["itemList"];

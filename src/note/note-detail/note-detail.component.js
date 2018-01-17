@@ -13,6 +13,10 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var item_1 = require("../../item/item");
 var NoteDetailComponent = (function () {
+    /**
+      * Метод, который делает валидацию даты
+      * @param=route Объект, который хранит данные роутинга
+      */
     function NoteDetailComponent(route) {
         var _this = this;
         this.route = route;
@@ -24,6 +28,11 @@ var NoteDetailComponent = (function () {
         });
         this.item = new item_1.Item(this.textNote, this.id, this.dateOfBegin, this.autor);
     }
+    /**
+     * Метод, который делает валидацию даты
+     * @param=date Дата полученая при роутинге
+     * @return Дату или ничего, если дата не задана
+     */
     NoteDetailComponent.prototype.getDate = function (date) {
         if (date.toString() == "Invalid Date")
             return null;
