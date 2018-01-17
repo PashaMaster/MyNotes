@@ -20,16 +20,6 @@ import { NoteService } from '../note.service';    
                     </div>
                 </div>
                 <div class="panel">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <input class="form-control" [(ngModel)]="id" placeholder = "{{'NOTES.Number' | translate}}"/>
-                            <button class="btn btn-default btnw" (click)="removeItem(id)">
-                                {{'NOTES.Remove' | translate}}                                
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel">
                     <ul class="notes">
                         <li (click) = "notSelected()">
                             <span class="badge">
@@ -46,11 +36,19 @@ import { NoteService } from '../note.service';    
                                 {{item.id}} 
                                 </font>
                             </span>
-                            {{item.textNote}}
+                            <div class="note" >{{item.textNote}} </div>
+                            <div class="delete">  
+                              <button class="delete-link" (click)="removeItem(item.id)">
+                                  &#10008;
+                              </button>
+                            </div>  
                         </li>
                     </ul>
                     <note-detail [item]="selectedItem"></note-detail>    
                 </div>   
+                <a routerLink="/dasasdfhboard">
+                                {{'HOME.ButtonDashboard' | translate}}
+                </a>
                `,
     providers: []
 })
@@ -96,11 +94,12 @@ export class NotesComponent implements OnInit{
             return;	
         let id: number;
 		id=0;
-		for (var item of this.items) {
-
+		//for (var item of this.items) {
+    this.items.forEach(function(item,i, items) {
 			if (item.id>id)
                 id=item.id;
-		}
+    
+		});
 		id=id+1;
     this.items.push(new Item(textN, id, new Date(dateN), nameN));
     }
@@ -114,11 +113,11 @@ export class NotesComponent implements OnInit{
           if(id==null)
               return; 
   		let newItems : Item[]=[];
-  		for (var item of this.items) {
+      this.items.forEach(function(item,i, items) {
 
               if (item.id != id)
                   newItems.push(new Item(item.textNote, item.id,  item.dateOfBegin, item.autor));
-  		}
+  		});
   		this.items=newItems;
       this.selectedItem = null;
   	}

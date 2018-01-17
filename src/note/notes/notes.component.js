@@ -41,11 +41,11 @@ var NotesComponent = (function () {
             return;
         var id;
         id = 0;
-        for (var _i = 0, _a = this.items; _i < _a.length; _i++) {
-            var item = _a[_i];
+        //for (var item of this.items) {
+        this.items.forEach(function (item, i, items) {
             if (item.id > id)
                 id = item.id;
-        }
+        });
         id = id + 1;
         this.items.push(new item_1.Item(textN, id, new Date(dateN), nameN));
     };
@@ -57,11 +57,10 @@ var NotesComponent = (function () {
         if (id == null)
             return;
         var newItems = [];
-        for (var _i = 0, _a = this.items; _i < _a.length; _i++) {
-            var item = _a[_i];
+        this.items.forEach(function (item, i, items) {
             if (item.id != id)
                 newItems.push(new item_1.Item(item.textNote, item.id, item.dateOfBegin, item.autor));
-        }
+        });
         this.items = newItems;
         this.selectedItem = null;
     };
@@ -108,7 +107,7 @@ var NotesComponent = (function () {
 NotesComponent = __decorate([
     core_1.Component({
         selector: 'purchase-notes',
-        template: " <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input type=\"range\" min=\"-200\" max=\"200\" value=\"1\" [(ngModel)]=\"count\" (change)=\"getCount(count)\">\n                            <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                            <input class=\"form-control\" type=\"date\" [(ngModel)]=\"date\" placeholder = \"{{'NOTES.Date' | translate}}\" />\n                            <input class=\"form-control\" [(ngModel)]=\"name\" placeholder = \"{{'NOTES.Name' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"addItem(text, date, name)\">\n                                {{'NOTES.Add' | translate}}\n                             </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"id\" placeholder = \"{{'NOTES.Number' | translate}}\"/>\n                            <button class=\"btn btn-default btnw\" (click)=\"removeItem(id)\">\n                                {{'NOTES.Remove' | translate}}                                \n                            </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <ul class=\"notes\">\n                        <li (click) = \"notSelected()\">\n                            <span class=\"badge\">\n                                ID\n                            </span>\n                            {{'NOTES.NoteIn' | translate}}\n                        </li>\n                        <li *ngFor=\"let item of items\"\n                            [class.selected]=\"item === selectedItem\"\n                            (click) = \"onSelected(item)\"\n                        > \n                            <span class=\"badge\">\n                                <font color={{getColor(item.dateOfBegin)}}>\n                                {{item.id}} \n                                </font>\n                            </span>\n                            {{item.textNote}}\n                        </li>\n                    </ul>\n                    <note-detail [item]=\"selectedItem\"></note-detail>    \n                </div>   \n               ",
+        template: " <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input type=\"range\" min=\"-200\" max=\"200\" value=\"1\" [(ngModel)]=\"count\" (change)=\"getCount(count)\">\n                            <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                            <input class=\"form-control\" type=\"date\" [(ngModel)]=\"date\" placeholder = \"{{'NOTES.Date' | translate}}\" />\n                            <input class=\"form-control\" [(ngModel)]=\"name\" placeholder = \"{{'NOTES.Name' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"addItem(text, date, name)\">\n                                {{'NOTES.Add' | translate}}\n                             </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <ul class=\"notes\">\n                        <li (click) = \"notSelected()\">\n                            <span class=\"badge\">\n                                ID\n                            </span>\n                            {{'NOTES.NoteIn' | translate}}\n                        </li>\n                        <li *ngFor=\"let item of items\"\n                            [class.selected]=\"item === selectedItem\"\n                            (click) = \"onSelected(item)\"\n                        > \n                            <span class=\"badge\">\n                                <font color={{getColor(item.dateOfBegin)}}>\n                                {{item.id}} \n                                </font>\n                            </span>\n                            <div class=\"note\" >{{item.textNote}} </div>\n                            <div class=\"delete\">  \n                              <button class=\"delete-link\" (click)=\"removeItem(item.id)\">\n                                  &#10008;\n                              </button>\n                            </div>  \n                        </li>\n                    </ul>\n                    <note-detail [item]=\"selectedItem\"></note-detail>    \n                </div>   \n                <a routerLink=\"/dasasdfhboard\">\n                                {{'HOME.ButtonDashboard' | translate}}\n                </a>\n               ",
         providers: []
     })
     /**

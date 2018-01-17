@@ -92,6 +92,25 @@ input[type=range]::-webkit-slider-runnable-track {
   margin-right: .8em;
   border-radius: 4px 0 0 4px;
 }
+.notes .note {
+  display: inline-block;
+  width: 88%;
+}
+.notes .delete {
+  display: inline-block;
+  width: 4%;
+}
+.notes .delete-link {
+    display: inline-block;
+    border: none;
+    border-radius: 100%;
+    background-color: #EEE;
+    color: red;
+    text-decoration: none;
+}
+.notes .delete-link:hover {
+    background-color: #B0E0E6;
+}
 .title {
   margin: 0 3em 2em 20em;
   color: #607D8B;

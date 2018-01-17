@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ITEMS } from '../mock/mock-note';
 import { Item } from '../item/item';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()

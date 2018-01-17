@@ -17,12 +17,14 @@ var app_component_1 = require("./app.component");
 var note_detail_component_1 = require("../note/note-detail/note-detail.component");
 var notes_component_1 = require("../note/notes/notes.component");
 var dashboard_component_1 = require("../main-page/dashboard.component");
+var noteinfo_component_1 = require("../note/noteinfo/noteinfo.component");
 /**
   * Переменная-константа, которая определяет навигацию по страницам, так же задает начальную страницу при запуске
   */
 var routers = [
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent, userAsDefault: true },
-    { path: 'notes', component: notes_component_1.NotesComponent }
+    { path: 'notes', component: notes_component_1.NotesComponent },
+    { path: 'noteinfo', component: noteinfo_component_1.NoteInfoComponent }
 ];
 /**
   * Функция, которая определяет параметры для перевода(открывает json файл определенного языка)
