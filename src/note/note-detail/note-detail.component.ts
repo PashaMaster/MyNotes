@@ -1,12 +1,15 @@
 import { Component, Input } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import { ActivatedRoute} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs/Subscription';
 import { Item } from '../../item/item';
 
 
 @Component({
 	selector:'note-detail',
 	template:`
-            <div  class="form-inline form-group"
+
+           <div  class="form-inline form-group"
                 *ngIf="item">
                 <h3>{{item.textNote}}</h3>
                 <div>
@@ -19,19 +22,19 @@ import { Item } from '../../item/item';
                     <label>
                         {{'DETAIL.Note' | translate}}: 
                     </label>
-                    <input class="form-control" [(ngModel)]="item.textNote" placeholder="textNote"/>
+                    {{item.textNote}}
                 </div>
                 <div>
                     <label>
                         {{'DETAIL.Date' | translate}}:
                     </label>
-                    {{getDate(item.dateOfBegin)}}
+                    {{item.dateOfBegin | date}}
                 <div>
                 <div>
                     <label>
                         {{'DETAIL.Autor' | translate}}:
                     </label>
-                    <input class="form-control" [(ngModel)]="item.autor" placeholder="autorNote"/>
+                    {{item.autor}}
                 </div>
             </div>
             `,
@@ -44,19 +47,26 @@ import { Item } from '../../item/item';
 
 export class NoteDetailComponent {
     
-  /** 
-    *  Импортируем массив, котлрый лежит в app.component
-    */
-	@Input()
-	item: Item;	
-    /** 
-    *  Метод вывода даты, удобной для пользователя
-    */
-    getDate(date: Date)
-    {
-        if (date.toDateString()=="Invalid Date")
-            return "-";
-        else    
-            return date.toDateString();
+    public item: Item;    
+    private id:number;    
+    private autor :string;
+    private textNote:string;
+    private dateOfBegin:Date;
+    private routeSubscription: Subscription;
+    private querySubscription: Subscription;
+
+    constructor(private route: ActivatedRoute){
+        
+        
+        this.routeSubscription = route.params.subscribe(params=>this.id=params['id']);
+        this.querySubscription = route.queryParams.subscribe(
+            (queryParam: any) => {
+                this.autor = queryParam['autor'];
+                this.dateOfBegin = queryParam['dateOfBegin'];
+                this.textNote = queryParam['textNote'];
+            }
+        );
+        this.item=new Item(this.textNote ,this.id, this.dateOfBegin, this.autor);  
     }
+		
 }

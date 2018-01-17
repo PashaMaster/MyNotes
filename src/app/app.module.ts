@@ -9,7 +9,6 @@ import { AppComponent }   from './app.component';
 import { NoteDetailComponent }   from '../note/note-detail/note-detail.component';
 import { NotesComponent } from '../note/notes/notes.component';
 import { DashboardComponent }      from '../main-page/dashboard.component';
-import { NoteInfoComponent }      from '../note/noteinfo/noteinfo.component';
 
 /** 
   * Переменная-константа, которая определяет навигацию по страницам, так же задает начальную страницу при запуске
@@ -17,7 +16,7 @@ import { NoteInfoComponent }      from '../note/noteinfo/noteinfo.component
 const routers = [
 	{path: 'dashboard', component: DashboardComponent, userAsDefault: true},
 	{path: 'notes', component: NotesComponent},
-  {path: 'noteinfo', component: NoteInfoComponent}
+  {path: 'notedetail/:id', component: NoteDetailComponent}
 ];
 
 /** 

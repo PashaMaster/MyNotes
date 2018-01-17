@@ -14,7 +14,7 @@ var NoteInfoComponent = (function () {
 }());
 NoteInfoComponent = __decorate([
     core_1.Component({
-        selector: 'my-dashboard',
+        selector: 'op1',
         template: "<h3>{{ 'Dashboard.h3' | translate }}</h3>"
     })
 ], NoteInfoComponent);

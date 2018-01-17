@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var item_1 = require("../../item/item");
 var note_service_1 = require("../note.service");
 var NotesComponent = (function () {
@@ -17,8 +18,9 @@ var NotesComponent = (function () {
       * Конструктор класса
       * @param=_noteService параметр, который передает доступ к хранилищу данных
       */
-    function NotesComponent(_noteService) {
+    function NotesComponent(_noteService, router) {
         this._noteService = _noteService;
+        this.router = router;
         /**
           * Поле, которое хранит в себе массив элементов списка
           */
@@ -70,12 +72,22 @@ var NotesComponent = (function () {
       */
     NotesComponent.prototype.onSelected = function (item) {
         this.selectedItem = item;
+        this.goToItem();
     };
     /**
       * Метод, который снимает выделение с элемента
       */
     NotesComponent.prototype.notSelected = function () {
         this.selectedItem = null;
+    };
+    NotesComponent.prototype.goToItem = function () {
+        this.router.navigate(['/notedetail', this.selectedItem.id], {
+            queryParams: {
+                'autor': this.selectedItem.autor,
+                'dateOfBegin': this.selectedItem.dateOfBegin,
+                'textNote': this.selectedItem.textNote
+            }
+        });
     };
     /**
       *  Метод переопределения переменной countDay
@@ -107,13 +119,13 @@ var NotesComponent = (function () {
 NotesComponent = __decorate([
     core_1.Component({
         selector: 'purchase-notes',
-        template: " <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input type=\"range\" min=\"-200\" max=\"200\" value=\"1\" [(ngModel)]=\"count\" (change)=\"getCount(count)\">\n                            <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                            <input class=\"form-control\" type=\"date\" [(ngModel)]=\"date\" placeholder = \"{{'NOTES.Date' | translate}}\" />\n                            <input class=\"form-control\" [(ngModel)]=\"name\" placeholder = \"{{'NOTES.Name' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"addItem(text, date, name)\">\n                                {{'NOTES.Add' | translate}}\n                             </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <ul class=\"notes\">\n                        <li (click) = \"notSelected()\">\n                            <span class=\"badge\">\n                                ID\n                            </span>\n                            {{'NOTES.NoteIn' | translate}}\n                        </li>\n                        <li *ngFor=\"let item of items\"\n                            [class.selected]=\"item === selectedItem\"\n                            (click) = \"onSelected(item)\"\n                        > \n                            <span class=\"badge\">\n                                <font color={{getColor(item.dateOfBegin)}}>\n                                {{item.id}} \n                                </font>\n                            </span>\n                            <div class=\"note\" >{{item.textNote}} </div>\n                            <div class=\"delete\">  \n                              <button class=\"delete-link\" (click)=\"removeItem(item.id)\">\n                                  &#10008;\n                              </button>\n                            </div>  \n                        </li>\n                    </ul>\n                    <note-detail [item]=\"selectedItem\"></note-detail>    \n                </div>   \n                <a routerLink=\"/dasasdfhboard\">\n                                {{'HOME.ButtonDashboard' | translate}}\n                </a>\n               ",
+        template: " <div class=\"panel\">\n                    <div class=\"form-inline\">\n                        <div class=\"form-group\">\n                            <input type=\"range\" min=\"-200\" max=\"200\" value=\"1\" [(ngModel)]=\"count\" (change)=\"getCount(count)\">\n                            <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"{{'NOTES.Note' | translate}}\" />\n                            <input class=\"form-control\" type=\"date\" [(ngModel)]=\"date\" placeholder = \"{{'NOTES.Date' | translate}}\" />\n                            <input class=\"form-control\" [(ngModel)]=\"name\" placeholder = \"{{'NOTES.Name' | translate}}\" />\n                            <button class=\"btn btn-default btnw\" (click)=\"addItem(text, date, name)\">\n                                {{'NOTES.Add' | translate}}\n                             </button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"panel\">\n                    <ul class=\"notes\">\n                        <li (click) = \"notSelected()\">\n                            <span class=\"badge\">\n                                ID\n                            </span>\n                            {{'NOTES.NoteIn' | translate}}\n                        </li>\n                        \n                        <li *ngFor=\"let item of items\"\n                            [class.selected]=\"item === selectedItem\"\n                            (click) = \"onSelected(item)\"\n                        > \n                            <span class=\"badge\">\n                                <font color={{getColor(item.dateOfBegin)}}>\n                                {{item.id}} \n                                </font>\n                            </span>\n                            <div class=\"note\" >\n                              {{item.textNote}} \n                            </div>\n                            <div class=\"delete\">  \n                              <button class=\"delete-link\" (click)=\"removeItem(item.id)\">\n                                  &#10008;\n                              </button>\n                            </div>  \n                        </li>\n                    </ul>\n                </div>   \n               ",
         providers: []
     })
     /**
       * Класс, для работы с нашим списком
       */
     ,
-    __metadata("design:paramtypes", [note_service_1.NoteService])
+    __metadata("design:paramtypes", [note_service_1.NoteService, router_1.Router])
 ], NotesComponent);
 exports.NotesComponent = NotesComponent;

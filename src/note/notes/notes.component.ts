@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
 import { OnInit } from '@angular/core';    
 import { Item } from '../../item/item';   
 import { NoteDetailComponent } from '../note-detail/note-detail.component';    
@@ -27,6 +28,7 @@ import { NoteService } from '../note.service';    
                             </span>
                             {{'NOTES.NoteIn' | translate}}
                         </li>
+                        
                         <li *ngFor="let item of items"
                             [class.selected]="item === selectedItem"
                             (click) = "onSelected(item)"
@@ -36,7 +38,9 @@ import { NoteService } from '../note.service';    
                                 {{item.id}} 
                                 </font>
                             </span>
-                            <div class="note" >{{item.textNote}} </div>
+                            <div class="note" >
+                              {{item.textNote}} 
+                            </div>
                             <div class="delete">  
                               <button class="delete-link" (click)="removeItem(item.id)">
                                   &#10008;
@@ -44,11 +48,7 @@ import { NoteService } from '../note.service';    
                             </div>  
                         </li>
                     </ul>
-                    <note-detail [item]="selectedItem"></note-detail>    
                 </div>   
-                <a routerLink="/dasasdfhboard">
-                                {{'HOME.ButtonDashboard' | translate}}
-                </a>
                `,
     providers: []
 })
@@ -67,7 +67,7 @@ export class NotesComponent implements OnInit{
       * Конструктор класса
       * @param=_noteService параметр, который передает доступ к хранилищу данных 
       */
-    constructor(private _noteService: NoteService) {
+    constructor(private _noteService: NoteService, private router: Router) {
       this.countDay=0;
     }
   
@@ -129,6 +129,8 @@ export class NotesComponent implements OnInit{
     onSelected(item: Item) : void {
 
         this.selectedItem = item;
+        this.goToItem();
+        
     }
 
     /** 
@@ -138,6 +140,21 @@ export class NotesComponent implements OnInit{
 
         this.selectedItem = null;
     }
+
+    goToItem()
+    {
+      this.router.navigate(
+            ['/notedetail', this.selectedItem.id], 
+            {
+                queryParams:{
+                    'autor': this.selectedItem.autor, 
+                    'dateOfBegin': this.selectedItem.dateOfBegin,
+                    'textNote': this.selectedItem.textNote
+                }
+            }
+        );
+    }
+
 
     /** 
       * Переменная, которая хранит значение ползунка  

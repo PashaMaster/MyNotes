@@ -10,30 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var item_1 = require("../../item/item");
 var NoteDetailComponent = (function () {
-    function NoteDetailComponent() {
+    function NoteDetailComponent(route) {
+        var _this = this;
+        this.route = route;
+        this.routeSubscription = route.params.subscribe(function (params) { return _this.id = params['id']; });
+        this.querySubscription = route.queryParams.subscribe(function (queryParam) {
+            _this.autor = queryParam['autor'];
+            _this.dateOfBegin = queryParam['dateOfBegin'];
+            _this.textNote = queryParam['textNote'];
+        });
+        this.item = new item_1.Item(this.textNote, this.id, this.dateOfBegin, this.autor);
     }
-    /**
-    *  Метод вывода даты, удобной для пользователя
-    */
-    NoteDetailComponent.prototype.getDate = function (date) {
-        if (date.toDateString() == "Invalid Date")
-            return "-";
-        else
-            return date.toDateString();
-    };
     return NoteDetailComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", item_1.Item)
-], NoteDetailComponent.prototype, "item", void 0);
 NoteDetailComponent = __decorate([
     core_1.Component({
         selector: 'note-detail',
-        template: "\n            <div  class=\"form-inline form-group\"\n                *ngIf=\"item\">\n                <h3>{{item.textNote}}</h3>\n                <div>\n                    <label>\n                        {{'DETAIL.ID' | translate}}: \n                    </label>\n                    {{item.id}}\n                </div>\n                <div>\n                    <label>\n                        {{'DETAIL.Note' | translate}}: \n                    </label>\n                    <input class=\"form-control\" [(ngModel)]=\"item.textNote\" placeholder=\"textNote\"/>\n                </div>\n                <div>\n                    <label>\n                        {{'DETAIL.Date' | translate}}:\n                    </label>\n                    {{getDate(item.dateOfBegin)}}\n                <div>\n                <div>\n                    <label>\n                        {{'DETAIL.Autor' | translate}}:\n                    </label>\n                    <input class=\"form-control\" [(ngModel)]=\"item.autor\" placeholder=\"autorNote\"/>\n                </div>\n            </div>\n            ",
+        template: "\n\n           <div  class=\"form-inline form-group\"\n                *ngIf=\"item\">\n                <h3>{{item.textNote}}</h3>\n                <div>\n                    <label>\n                        {{'DETAIL.ID' | translate}}: \n                    </label>\n                    {{item.id}}\n                </div>\n                <div>\n                    <label>\n                        {{'DETAIL.Note' | translate}}: \n                    </label>\n                    {{item.textNote}}\n                </div>\n                <div>\n                    <label>\n                        {{'DETAIL.Date' | translate}}:\n                    </label>\n                    {{item.dateOfBegin | date}}\n                <div>\n                <div>\n                    <label>\n                        {{'DETAIL.Autor' | translate}}:\n                    </label>\n                    {{item.autor}}\n                </div>\n            </div>\n            ",
         styles: ["\n            .form-group{\n             margin: 0 0 0 5em;\n             display: inline-block;\n          "]
-    })
+    }),
+    __metadata("design:paramtypes", [router_1.ActivatedRoute])
 ], NoteDetailComponent);
 exports.NoteDetailComponent = NoteDetailComponent;
