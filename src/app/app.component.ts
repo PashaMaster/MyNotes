@@ -7,39 +7,7 @@ import { NoteService } from '../note/note.service';
 
 @Component({
     selector: 'purchase-app',
-    template: `
-                <div class="menu">                    
-                    <ul>
-                        <li>
-                            <div class="title">
-                                {{'HOME.Title' | translate}}
-                            </div>
-                        </li>
-                        <li>
-                            <a routerLink="/dashboard">
-                               {{'HOME.ButtonDashboard' | translate}}
-                            </a>
-                        </li>
-                        <li>
-                            <a routerLink="/notes">
-                                {{'HOME.ButtonNotes' | translate}}
-                            </a>  
-                        </li>
-                        <li>
-                            <a>
-                                {{'HOME.Language' | translate}}
-                                <select #langSelect (change)="translate.use(langSelect.value)">
-                                    <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
-                                        {{ lang }}
-                                    </option>
-                                </select>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </div>
-                <router-outlet></router-outlet>
-                `,
+    templateUrl: './src/app/app.component.html',
     providers: [NoteService]
 })
 

@@ -7,42 +7,8 @@ import { Item } from '../../item/item';
 
 @Component({
 	selector:'note-detail',
-	template:`
-
-           <div  class="form-inline form-group"
-                *ngIf="item">
-                <h3 class="text-color">{{item.textNote}}</h3>
-                <div class="text-color">
-                    <label>
-                        {{'DETAIL.ID' | translate}}: 
-                    </label>
-                    {{item.id}}
-                </div>
-                <div class="text-color">
-                    <label>
-                        {{'DETAIL.Note' | translate}}: 
-                    </label>
-                    {{item.textNote}}
-                </div>
-                <div class="text-color">
-                    <label>
-                        {{'DETAIL.Autor' | translate}}:
-                    </label>
-                    {{item.autor}}
-                </div>
-                <div class="text-color">
-                    <label>
-                        {{'DETAIL.Date' | translate}}:
-                    </label>
-                    {{getDate(item.dateOfBegin) | date}} 
-                <div>                
-            </div>
-            `,
-    styles:[`
-            .form-group{
-             margin: 0 0 0 5em;
-             display: inline-block;
-          `]
+	templateUrl: './src/note/note-detail/note-detail.component.html',
+  styleUrls: ['./src/note/note-detail/note-detail.component.css']  
 })
 
 export class NoteDetailComponent {
