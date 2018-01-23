@@ -30,7 +30,7 @@ export class Item{
 	  * @param=dateOfBegin дата
 	  * @param=autor имя автора
 	  */
-	constructor(textNote: string, id: number, dateOfBegin: Date, autor: string) {
+	constructor(id: number, textNote: string, dateOfBegin: Date, autor: string) {
   
 		this.id=id;
         this.textNote = textNote;

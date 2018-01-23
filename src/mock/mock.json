@@ -1,44 +1,46 @@
-{ 
-    "itemList":
-    [{
-        "id": 1,
-        "textNote": "Buy new auto",
-        "dateOfBegin": "2017-12-16",
-        "autor": "Pasha"
-    },{
-        "id": 2,
-        "textNote": "Hello!",
-        "dateOfBegin": "2017-12-01",
-        "autor": "Masha"
-    },{
-        "id": 3,
-        "textNote": "I'm Valera!",
-        "dateOfBegin": "2017-12-11",
-        "autor": "Valera"
-    },{
-        "id": 4,
-        "textNote": "New Year!",
-        "dateOfBegin": "2017-12-31",
-        "autor": "Pasha"
-    },{
-        "id": 5,
-        "textNote": "First Project!",
-        "dateOfBegin": "2017-11-16",
-        "autor": "Masha"
-    },{
-        "id": 6,
-        "textNote": "October!",
-        "dateOfBegin": "2017-10-16",
-        "autor": "Valera"
-    },{
-        "id": 7,
-        "textNote": "Select new auto!",
-        "dateOfBegin": "2017-09-16",
-        "autor": "Pasha"
-    },{
-        "id": 8,
-        "textNote": "Buy new hous",
-        "dateOfBegin": "2018-01-16",
-        "autor": "Valera"
-    }]
+{
+  "itemList": [
+    {
+      "id": 1,
+      "textNote": "Buy new auto",
+      "dateOfBegin": "2017-12-16",
+      "autor": "Pasha"
+    },
+    {
+      "id": 2,
+      "textNote": "Hello!",
+      "dateOfBegin": "2017-12-01",
+      "autor": "Masha"
+    },
+    {
+      "id": 3,
+      "textNote": "I'm Valera!",
+      "dateOfBegin": "2017-12-11",
+      "autor": "Valera"
+    },
+    {
+      "id": 4,
+      "textNote": "New Year!",
+      "dateOfBegin": "2017-12-31",
+      "autor": "Pasha"
+    },
+    {
+      "id": 6,
+      "textNote": "October!",
+      "dateOfBegin": "2017-10-16",
+      "autor": "Valera"
+    },
+    {
+      "id": 7,
+      "textNote": "Select new auto!",
+      "dateOfBegin": "2017-09-16",
+      "autor": "Pasha"
+    },
+    {
+      "id": 8,
+      "textNote": "Buy new hous",
+      "dateOfBegin": "2018-01-16",
+      "autor": "Valera"
+    }
+  ]
 }

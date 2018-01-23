@@ -29,15 +29,14 @@
         </li>
         
         <li *ngFor="let item of items"
-            [class.selected]="item === selectedItem"
-            (click) = "onSelected(item)"
+            [class.selected]="item === selectedItem"            
         > 
             <span class="badge">
                 <font color={{getColor(item.dateOfBegin)}}>
-                {{item.id}} 
+                  {{item.id}} 
                 </font>
             </span>
-            <div class="note" >
+            <div class="note" (click) = "onSelected(item)">
               {{item.textNote}} 
             </div>
             <div class="delete">  

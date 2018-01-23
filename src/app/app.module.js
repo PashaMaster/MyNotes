@@ -13,6 +13,7 @@ var core_2 = require("@ngx-translate/core");
 var http_loader_1 = require("@ngx-translate/http-loader");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
+var http_2 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var note_detail_component_1 = require("../note/note-detail/note-detail.component");
 var notes_component_1 = require("../note/notes/notes.component");
@@ -50,6 +51,7 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             router_1.RouterModule.forRoot(routers),
+            http_2.HttpModule,
             http_1.HttpClientModule,
             core_2.TranslateModule.forRoot({
                 loader: {

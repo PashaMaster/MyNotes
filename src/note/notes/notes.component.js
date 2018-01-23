@@ -22,46 +22,58 @@ var NotesComponent = (function () {
         this._noteService = _noteService;
         this.router = router;
         /**
-          * Поле, которое хранит в себе массив элементов списка
-          */
+         * Поле, которое хранит в себе массив элементов списка
+         */
         this.items = [];
         this.countDay = 0;
     }
     /**
-      * Метод, который срабатывает при загрузке, вызывая метод получения данных из хранилища
+      * Метод, который срабатывает при загрузке стр и вызывает метод получения данных
       */
     NotesComponent.prototype.ngOnInit = function () {
+        this.getNotes();
+    };
+    /**
+     * Метод, который получает все записки из хранилища
+     */
+    NotesComponent.prototype.getNotes = function () {
         var _this = this;
-        this._noteService.getItems().subscribe(function (data) { return _this.items = data; });
+        this._noteService.getItems()
+            .subscribe(function (data) { return _this.items = data; }, function (errorCode) { return _this.statusCode = errorCode; });
     };
     /**
       * Метод, который добавляет записку
       * @param=textN строка, которую нужно добавить
+      * @param=dateN дата, которую нужно добавить
+      * @param=nameN автор, которого нужно добавить
       */
     NotesComponent.prototype.addItem = function (textN, dateN, nameN) {
+        var _this = this;
         var id;
-        id = 0;
-        this.items.forEach(function (item, i, items) {
-            if (item.id > id)
-                id = item.id;
+        this._noteService.getItems()
+            .subscribe(function (items) {
+            var maxIndex = items.length - 1;
+            var itemWithMaxIndex = items[maxIndex];
+            var itemId = itemWithMaxIndex.id + 1;
+            var item = new item_1.Item(itemId, textN, dateN, nameN);
+            _this._noteService.createItem(item)
+                .subscribe(function (successCode) {
+                _this.statusCode = successCode;
+                _this.getNotes();
+            }, function (errorCode) { return _this.statusCode = errorCode; });
         });
-        id = id + 1;
-        this.items.push(new item_1.Item(textN, id, new Date(dateN), nameN));
     };
     /**
       * Метод, который удаляет записку
       * @param=id номер удаляемой строки
       */
     NotesComponent.prototype.removeItem = function (id) {
-        if (id == null)
-            return;
-        var newItems = [];
-        this.items.forEach(function (item, i, items) {
-            if (item.id != id)
-                newItems.push(new item_1.Item(item.textNote, item.id, item.dateOfBegin, item.autor));
-        });
-        this.items = newItems;
-        this.selectedItem = null;
+        var _this = this;
+        this._noteService.deleteItemById(id.toString())
+            .subscribe(function (successCode) {
+            _this.statusCode = 204;
+            _this.getNotes();
+        }, function (errorCode) { return _this.statusCode = errorCode; });
     };
     /**
       * Метод, который запоминает выделенный элемент
@@ -101,6 +113,7 @@ var NotesComponent = (function () {
       *  @param=dateN дата заметки
       */
     NotesComponent.prototype.getColor = function (dateN) {
+        dateN = new Date(dateN);
         var myDate;
         myDate = new Date();
         var day, count;

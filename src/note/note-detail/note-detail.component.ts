@@ -62,7 +62,7 @@ export class NoteDetailComponent {
                 this.textNote = queryParam['textNote'];
             }
         );
-        this.item=new Item(this.textNote ,this.id, this.dateOfBegin, this.autor);  
+        this.item=new Item(this.id, this.textNote,this.dateOfBegin, this.autor);  
     }
     
      /** 

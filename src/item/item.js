@@ -11,7 +11,7 @@ var Item = (function () {
       * @param=dateOfBegin дата
       * @param=autor имя автора
       */
-    function Item(textNote, id, dateOfBegin, autor) {
+    function Item(id, textNote, dateOfBegin, autor) {
         this.id = id;
         this.textNote = textNote;
         this.dateOfBegin = dateOfBegin;

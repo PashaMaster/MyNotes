@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import {Router} from '@angular/router';
-import { OnInit } from '@angular/core';    
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Item } from '../../item/item';   
 import { NoteDetailComponent } from '../note-detail/note-detail.component';    
 import { NoteService } from '../note.service';    
@@ -20,40 +20,65 @@ export class NotesComponent implements OnInit{
       * Поле, которое хранит в себе выделенный элемент списка
       */
     selectedItem: Item;
-
-    /** 
-      * Конструктор класса
-      * @param=_noteService параметр, который передает доступ к хранилищу данных 
-      */
-    constructor(private _noteService: NoteService, private router: Router) {
-      this.countDay=0;
-    }
   
-    /** 
+     /** 
       * Поле, которое хранит в себе массив элементов списка
       */
     items: Item[]=[];
 
     /** 
-      * Метод, который срабатывает при загрузке, вызывая метод получения данных из хранилища
+      * Поле, которое хранит в себе коды ошибок
       */
-    ngOnInit() {
-        
-        this._noteService.getItems().subscribe(data => this.items=data);
+    statusCode: number;
+  
+    /** 
+      * Конструктор класса
+      * @param=_noteService параметр, который передает доступ к хранилищу данных 
+      */
+    constructor(private _noteService: NoteService, private router: Router) {
+      
+      this.countDay=0;
+    }
+    
+    /** 
+      * Метод, который срабатывает при загрузке стр и вызывает метод получения данных
+      */
+    ngOnInit(): void {
+        this.getNotes();
+    }   
+
+    /** 
+     * Метод, который получает все записки из хранилища
+     */
+    getNotes() {
+      this._noteService.getItems()
+      .subscribe(
+        data => this.items = data,
+        errorCode =>  this.statusCode = errorCode)
     }
 
     /** 
       * Метод, который добавляет записку
       * @param=textN строка, которую нужно добавить
+      * @param=dateN дата, которую нужно добавить
+      * @param=nameN автор, которого нужно добавить
       */
     addItem(textN: string, dateN: Date, nameN: string): void {
-        let id: number;
-  		id=0;
-      this.items.forEach(function(item,i, items) {
-  			if (item.id>id)
-                  id=item.id;});
-  		id=id+1;
-      this.items.push(new Item(textN, id, new Date(dateN), nameN));
+      let id;
+      this._noteService.getItems()
+        .subscribe(items => {
+           let maxIndex = items.length - 1;
+           let itemWithMaxIndex = items[maxIndex];
+           let itemId = itemWithMaxIndex.id + 1;
+           let item = new Item(itemId, textN, dateN, nameN);  
+           this._noteService.createItem(item)
+        .subscribe(successCode => {
+           this.statusCode = successCode;
+           this.getNotes();  
+         },
+         errorCode => this.statusCode = errorCode
+         );
+       });    
     }
 
     /** 
@@ -61,17 +86,12 @@ export class NotesComponent implements OnInit{
       * @param=id номер удаляемой строки
       */
   	removeItem(id: number): void {
-
-          if(id==null)
-              return; 
-  		let newItems : Item[]=[];
-      this.items.forEach(function(item,i, items) {
-
-              if (item.id != id)
-                  newItems.push(new Item(item.textNote, item.id,  item.dateOfBegin, item.autor));
-  		});
-  		this.items=newItems;
-      this.selectedItem = null;
+      this._noteService.deleteItemById(id.toString())
+        .subscribe(successCode => {
+          this.statusCode = 204;
+          this.getNotes();  
+      },
+      errorCode => this.statusCode = errorCode);   
   	}
 
     /** 
@@ -82,7 +102,6 @@ export class NotesComponent implements OnInit{
 
         this.selectedItem = item;
         this.goToItem();
-        
     }
 
     /** 
@@ -130,6 +149,7 @@ export class NotesComponent implements OnInit{
       */
     getColor(dateN : Date) : string {
 
+        dateN=new Date(dateN);
         let myDate: Date;
         myDate = new Date();
         let day, count:number;
@@ -139,7 +159,7 @@ export class NotesComponent implements OnInit{
         if (myDate > dateN)
             return "red";
         else
-          if (myDate <= dateN)
+          if (myDate <= dateN) 
             return "green";
           else
             return "white";

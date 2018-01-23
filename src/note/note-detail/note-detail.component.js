@@ -26,7 +26,7 @@ var NoteDetailComponent = (function () {
             _this.dateOfBegin = queryParam['dateOfBegin'];
             _this.textNote = queryParam['textNote'];
         });
-        this.item = new item_1.Item(this.textNote, this.id, this.dateOfBegin, this.autor);
+        this.item = new item_1.Item(this.id, this.textNote, this.dateOfBegin, this.autor);
     }
     /**
      * Метод, который делает валидацию даты
